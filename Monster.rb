@@ -1,4 +1,7 @@
-module ...
+require_relative 'BadConsequence.rb'
+require_relative 'TreasureKind.rb'
+require_relative 'Prize.rb'
+module NapakalakiRuby
 class Monster
 	def initialize(name,level,bc,prize)
 		@name=name
@@ -13,4 +16,5 @@ class Monster
 		"\nName:" +  @name + "\nCombatLevel: "+ @level.to_s + "\nBadConsequence:" + @badConsequence.to_s + "\nPrize" + @prize.to_s
 	end
 
+end
 end

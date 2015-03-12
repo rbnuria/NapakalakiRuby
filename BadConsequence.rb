@@ -1,4 +1,7 @@
-module ...
+
+require_relative 'TreasureKind.rb'
+require_relative 'Prize.rb'
+module NapakalakiRuby
 class BadConsequence
 
 	attr_reader :text, :levels, :nVisibleTreasures, :nHiddenTreasures, :death, :specificVisibleTreasures, :specificHiddenTreasures
@@ -18,7 +21,7 @@ class BadConsequence
 	end
 
 	def BadConsequence.newDeath(text)
-		new(text, -1, -1, -1, true, Array.new, Array,new)
+		new(text, -1, -1, -1, true, Array.new, Array.new)
 	end
 
 	def BadConsequence.newLevelSpecificTreasures(text, levels, specificVisibleTreasures, specificHiddenTreasures)
@@ -34,16 +37,17 @@ class BadConsequence
 		end
 
 		tesorosVisibles = ""
-		for i in 0 .. specificVisibleTreasures.length
-			tesorosVisibles += specificVisibleTreasures[i]
+		for i in 0 .. @specificVisibleTreasures.length
+			tesorosVisibles += @specificVisibleTreasures[i].to_s
 		end
 
 		tesorosOcultos = ""
-		for i in 0 .. specificHiddenTreasures.length
-			tesorosOcultos += specificHiddenTreasures[i]
+		for i in 0 .. @specificHiddenTreasures.length
+			tesorosOcultos += @specificHiddenTreasures[i].to_s
 		end
 
 		"\nText: " + @text + "\nLevels: " + @levels.to_s + "\nnVisibleTreasures: " + @nVisibleTreasures.to_s + "\nnHiddenTreasures: " + @nHiddenTreasures.to_s +
 		"\nDeath : " + muerto + "\nSpecificVisibleTreasures: " + tesorosVisibles + "\nSpecificHiddenTreasures: " + tesorosOcultos
 	end
 end
+end 

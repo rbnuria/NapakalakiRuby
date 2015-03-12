@@ -1,8 +1,9 @@
-module NapakalakiGame
+
+module NapakalakiRuby
 module TreasureKind
     ONEHAND=:ONEHAND
     ARMOR =:ARMOR
-    BOTHHAND =:BOTHHAND
+    BOTHHANDS =:BOTHHANDS
     HELMET = :HELMET
     SHOE = :SHOE
     NECKLACE = :NECKLACE
