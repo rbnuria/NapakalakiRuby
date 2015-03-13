@@ -46,7 +46,19 @@ class BadConsequence
 			tesorosOcultos += @specificHiddenTreasures[i].to_s
 		end
 
-		"\nText: " + @text + "\nLevels: " + @levels.to_s + "\nnVisibleTreasures: " + @nVisibleTreasures.to_s + "\nnHiddenTreasures: " + @nHiddenTreasures.to_s +
+		if(@nVisibleTreasures == -1)
+			nVisible_string = "No utiliza número tesoros visibles"
+		else
+			nVisible_string = @nVisibleTreasures.to_s
+		end
+
+		if(@nHiddenTreasures == -1)
+			nHidden_string = "No utiliza número tesoros visibles"
+		else
+			nHidden_string = @nHiddenTreasures.to_s
+		end
+
+		"\nText: " + @text + "\nLevels: " + @levels.to_s + "\nnVisibleTreasures: " + nVisible_string + "\nnHiddenTreasures: " + nHidden_string +
 		"\nDeath : " + muerto + "\nSpecificVisibleTreasures: " + tesorosVisibles + "\nSpecificHiddenTreasures: " + tesorosOcultos
 	end
 end

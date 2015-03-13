@@ -10,10 +10,10 @@ class Monster
 		@prize=prize
 	end
 
-	attr_reader :name, :level, :badConsequence, :prize
+	attr_reader :name, :combatLevel, :badConsequence, :prize
 	
 	def to_s
-		"\nName:" +  @name + "\nCombatLevel: "+ @level.to_s + "\nBadConsequence:" + @badConsequence.to_s + "\nPrize" + @prize.to_s
+		"\nName:" +  @name + "\nCombatLevel: "+ @combatLevel.to_s + "\nBadConsequence:" + @badConsequence.to_s + "\nPrize" + @prize.to_s
 	end
 
 end

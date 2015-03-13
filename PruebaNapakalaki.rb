@@ -3,6 +3,7 @@ require_relative 'BadConsequence.rb'
 require_relative 'TreasureKind.rb'
 require_relative 'Prize.rb'
 require_relative 'Monster.rb'
+require_relative 'CartasMonstruos.rb'
 module NapakalakiRuby
 class Main
 
@@ -46,5 +47,17 @@ class Main
 	puts monstruo2.badConsequence.to_s
 	puts monstruo3.badConsequence.to_s
 	puts monstruo4.badConsequence.to_s
+
+	#Apartado F
+	monstruos = CartasMonstruos.new
+
+	salida = Array.new
+	for i in 0 .. monstruos.monsters.length
+		if(monstruos.monsters[i].combatLevel > 10)
+			salida << monstruos.monsters[i]
+		end
+	end
+
+
 end
 end 	
