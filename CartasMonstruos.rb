@@ -76,30 +76,6 @@ class CartasMonstruos
 
 end
 
-	monstruos = CartasMonstruos.new
-
-	puts "Monstruos con un nivel de combate superior a 10"
-	for monster in monstruos.monsters
-		if monster.combatLevel > 10
-			puts monster.to_s
-		end
-	end
-
-	puts "Monstruos cuyo malRollo solo suponga perdida de niveles"
-	for monster in monstruos.monsters
-		if (monster.badConsequence.nVisibleTreasures == -1 && monster.badConsequence.nHiddenTreasures == -1) || (monster.badConsequence.specificVisibleTreasures == nil && monster.badConsequence.specificHiddenTreasures == nil)
-			if(monster.badConsequence.levels != -1)
-				puts monster.to_s
-			end
-		end
-	end
-
-
-
-
-
-
-
 end	
 
 

@@ -6,30 +6,36 @@ class BadConsequence
 
 	attr_reader :text, :levels, :nVisibleTreasures, :nHiddenTreasures, :death, :specificVisibleTreasures, :specificHiddenTreasures
 
-	def initialize(text, levels, nVisibleTreasures, nHiddenTreasures, death, specificVisibleTreasures, specificHiddenTreasures)
-		@text = text
-		@levels = levels
-		@nVisibleTreasures = nVisibleTreasures
-		@nHiddenTreasures = nHiddenTreasures
+	def initialize(txt, level, nVisible, nHidden, death, sVisibleTreasures, sHiddenTreasures)
+		@text = txt
+		@levels = level
+		@nVisibleTreasures = nVisible
+		@nHiddenTreasures = nHidden
 		@death = death
-		@specificHiddenTreasures = specificHiddenTreasures
-		@specificVisibleTreasures = specificVisibleTreasures
+		@specificHiddenTreasures = sHiddenTreasures
+		@specificVisibleTreasures = sVisibleTreasures
 	end
 
-	def BadConsequence.newLevelNumberOfTreasures(text, levels, nVisibleTreasures, nHiddenTreasures)
-		new(text,levels, nVisibleTreasures, nHiddenTreasures, false, Array.new, Array.new)
+	def BadConsequence.newLevelNumberOfTreasures(text, levels, nVisible, nHidden)
+		new(text,levels, nVisible, nHidden, false, Array.new, Array.new)
 	end
 
-	def BadConsequence.newDeath(text)
-		new(text, -1, -1, -1, true, Array.new, Array.new)
+	def BadConsequence.newDeath(txt)
+		new(txt, -1, -1, -1, true, Array.new, Array.new)
 	end
 
-	def BadConsequence.newLevelSpecificTreasures(text, levels, specificVisibleTreasures, specificHiddenTreasures)
-		new(text, levels, -1, -1, false, specificVisibleTreasures, specificHiddenTreasures)
+	def BadConsequence.newLevelSpecificTreasures(txt, level, sVisibleTreasures, sHiddenTreasures)
+		new(txt, level, -1, -1, false, sVisibleTreasures, sHiddenTreasures)
 	end
 
 
 	def to_s
+		if(levels = -1)
+			nivel = "No quita niveles"
+		else
+			nivel = levels.to_s
+		end
+
 		if(death)
 			muerto = "true";
 		else
@@ -58,7 +64,7 @@ class BadConsequence
 			nHidden_string = @nHiddenTreasures.to_s
 		end
 
-		"\nText: " + @text + "\nLevels: " + @levels.to_s + "\nnVisibleTreasures: " + nVisible_string + "\nnHiddenTreasures: " + nHidden_string +
+		"\nText: " + @text + "\nLevels: " + nivel + "\nnVisibleTreasures: " + nVisible_string + "\nnHiddenTreasures: " + nHidden_string +
 		"\nDeath : " + muerto + "\nSpecificVisibleTreasures: " + tesorosVisibles + "\nSpecificHiddenTreasures: " + tesorosOcultos
 	end
 end
