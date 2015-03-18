@@ -31,8 +31,8 @@ class CartasMonstruos
 		@monsters << Monster.new('Angeles de la noche ibicenca', 14, prize, badConsequence)
 
 		#El gorron en el umbral
-		prize = Prize.new(3,1)
-		badConsequence = BadConsequence.newLevelNumberOfTreasures('Pierdes todos tus tesoros visibles.', -1, 5, 5)
+		prize = Prize.new(3,15)
+		badConsequence = BadConsequence.newLevelNumberOfTreasures('Pierdes todos tus tesoros visibles.', -1, 5, -1)
 		@monsters << Monster.new('El gorron en el umbral', 10, prize, badConsequence)
 
 		#H.P. Munchraft
