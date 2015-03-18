@@ -6,7 +6,7 @@ class Monster
 	def initialize(name,level,prize,bc)
 		@name=name
 		@combatLevel=level
-				@prize=prize
+		@prize=prize
 		@badConsequence=bc
 
 	end
@@ -14,7 +14,7 @@ class Monster
 	attr_reader :name, :combatLevel, :prize, :badConsequence
 	
 	def to_s
-		"\nName:" +  @name + "\nCombatLevel: "+ @combatLevel.to_s + "\nBadConsequence:" + @badConsequence.to_s + "\nPrize" + @prize.to_s
+		"\nName:" +  @name + "\nNivel de combate: "+ @combatLevel.to_s + "\nMal Rollo:" + @badConsequence.to_s + "\nBuen Rollo" + @prize.to_s
 	end
 
 end

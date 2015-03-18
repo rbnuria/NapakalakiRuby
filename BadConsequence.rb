@@ -30,7 +30,7 @@ class BadConsequence
 
 
 	def to_s
-		if(levels = -1)
+		if(levels == -1)
 			nivel = "No quita niveles"
 		else
 			nivel = levels.to_s
@@ -44,12 +44,12 @@ class BadConsequence
 
 		tesorosVisibles = ""
 		for i in 0 .. @specificVisibleTreasures.length
-			tesorosVisibles += @specificVisibleTreasures[i].to_s
+			tesorosVisibles += @specificVisibleTreasures[i].to_s+ " "
 		end
 
 		tesorosOcultos = ""
 		for i in 0 .. @specificHiddenTreasures.length
-			tesorosOcultos += @specificHiddenTreasures[i].to_s
+			tesorosOcultos += @specificHiddenTreasures[i].to_s + " "
 		end
 
 		if(@nVisibleTreasures == -1)
@@ -64,8 +64,8 @@ class BadConsequence
 			nHidden_string = @nHiddenTreasures.to_s
 		end
 
-		"\nText: " + @text + "\nLevels: " + nivel + "\nnVisibleTreasures: " + nVisible_string + "\nnHiddenTreasures: " + nHidden_string +
-		"\nDeath : " + muerto + "\nSpecificVisibleTreasures: " + tesorosVisibles + "\nSpecificHiddenTreasures: " + tesorosOcultos
+		"\nTexto: " + @text + "\nNiveles: " + nivel + "\nNumero tesoros visibles: " + nVisible_string + "\nNumero tesoros ocultos: " + nHidden_string +
+		"\nMuerte: " + muerto + "\nTesoros visibles especificos: " + tesorosVisibles + "\nTesoros ocultos especificos: " + tesorosOcultos
 	end
 end
 end 

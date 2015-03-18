@@ -1,4 +1,3 @@
-
 require_relative 'TreasureKind.rb'
 module NapakalakiRuby
 class Prize
@@ -11,7 +10,7 @@ class Prize
 	attr_reader :levels, :treasures  
 
 	def to_s
-		"\nTreasures: "+ @treasures.to_s + "\nLevels :" + @levels.to_s
+		"\nTesoros: "+ @treasures.to_s + "\nNiveles:" + @levels.to_s
 	end
 end	
 end

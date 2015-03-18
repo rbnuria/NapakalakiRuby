@@ -1,4 +1,3 @@
-
 module NapakalakiRuby
 module TreasureKind
     ONEHAND=:ONEHAND
