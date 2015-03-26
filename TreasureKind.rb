@@ -8,4 +8,5 @@ module TreasureKind
     NECKLACE = :NECKLACE
 end
 
+
 end
