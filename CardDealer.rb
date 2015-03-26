@@ -5,9 +5,14 @@ require_relative 'cultist.rb'
 module NapakalakiRuby
 
 class CardDealer
-include singleton
+include Singleton
 
 def initialize
+	@unusedMonsters=Array.new
+	@usedMonsters = Array.new
+	@usedTreasures = Array.new
+	@unusedTreasures = Array.new
+
 end
 
 def initTreasureCardDeck
