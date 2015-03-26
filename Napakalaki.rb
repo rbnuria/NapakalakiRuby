@@ -3,7 +3,6 @@ require_relative 'Monster.rb'
 require_relative 'Player.rb'
 require 'singleton'
 module NapakalakiRuby
-
 class Napakalaki
 include Singleton
 	def initialize 
@@ -11,7 +10,7 @@ include Singleton
 		@currentPlayers=Player.new
 		@players = Array.new
 	end	
-	 
+
 	private
 	def initPlayers(names)
 	end
@@ -49,10 +48,19 @@ include Singleton
 	def canMakeTreasureVisible(t)
 	end
 
-	def getVisibleTreasure
+	def getVisibleTreasures
 	end
 
-	def getHidden
+	def getHiddenTreasures
+	end
 
+	def nextTurn
+	end
 
+	def nextTurnAllowed
+	end
+
+	def endOfGame(result)
+	end
+end
 end
