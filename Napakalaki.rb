@@ -2,7 +2,7 @@ require_relative 'Napakalaki.rb'
 require_relative 'Monster.rb'
 require_relative 'Player.rb'
 require 'singleton'
-module NapakalakiRuby
+module NapakalakiRuby     
 class Napakalaki
 include Singleton
 	def initialize 
