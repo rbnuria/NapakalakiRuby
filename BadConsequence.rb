@@ -1,4 +1,3 @@
-
 require_relative 'TreasureKind.rb'
 require_relative 'Prize.rb'
 module NapakalakiRuby
@@ -28,6 +27,22 @@ class BadConsequence
 		new(txt, level, -1, -1, false, sVisibleTreasures, sHiddenTreasures)
 	end
 
+	private_class_method :new
+
+	def isEmpty
+	end
+
+	def kills
+	end
+
+	def substractVisibleTreasure(t)
+	end
+
+	def substractHiddenTreasure(t)
+	end
+
+	def adjustToFitTreasureLists(v, h)
+	end
 
 	def to_s
 		if(levels == -1)

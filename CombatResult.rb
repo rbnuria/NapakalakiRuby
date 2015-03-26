@@ -1,0 +1,10 @@
+module NapakalakiRuby
+module CombatResult
+    WINANDWINGAME=:WINANDWINGAME
+    WIN=:WIN
+    LOSE=:LOSE
+    LOSEANDESCAPE=:LOSEANDESCAPE
+    LOSANDDIE=:LOSANDDIE
+end
+
+end

@@ -1,0 +1,58 @@
+require_relative 'Napakalaki.rb'
+require_relative 'Monster.rb'
+require_relative 'Player.rb'
+require 'singleton'
+module NapakalakiRuby
+
+class Napakalaki
+include Singleton
+	def initialize 
+		@currentMonster=Monster.new
+		@currentPlayers=Player.new
+		@players = Array.new
+	end	
+	 
+	private
+	def initPlayers(names)
+	end
+
+	def nextPlayer
+	end
+
+	public
+	
+
+	def combat
+	end
+
+	def discardVisibleTreasure(t)
+	end
+
+	def discardHiddenTreasure(t)
+	end
+
+	def makeTreasureVisible(t)
+	end
+
+	def buyLevels(visible,hidden)
+	end
+
+	def initGame(players)
+	end
+
+	def getCurrentPlayer
+	end
+
+	def getCurrentMonster
+	end
+
+	def canMakeTreasureVisible(t)
+	end
+
+	def getVisibleTreasure
+	end
+
+	def getHidden
+
+
+end
