@@ -18,7 +18,7 @@ include Singleton
 	def nextPlayer
 	end
 
-	public
+	public 
 	
 
 	def combat
