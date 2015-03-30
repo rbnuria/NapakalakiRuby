@@ -12,3 +12,4 @@ class Treasure
 	attr_reader :name, :goldCoins, :minBonus, :maxBonus, :type
 
 end
+end
