@@ -1,3 +1,4 @@
+#encoding: utf-8
 require_relative 'TreasureKind.rb'
 require_relative 'Prize.rb'
 module NapakalakiRuby

@@ -1,3 +1,4 @@
+#encoding: utf-8
 require_relative 'Treasure.rb'
 require_relative 'BadConsequence.rb'
 require_relative 'Dice.rb'
@@ -15,21 +16,31 @@ class Player
 
 		#referencias
 		@hiddenTreasures = Array.new
-		@visibleTreasures = Array.new
-		@setPendingBadConsequence =BadConsequence.new
+		@visibleTreasures = Array.new	
+		@pendingBadConsequence = nil	
 	end
 
 	private
 	def bringToLive
+		@dead=false
 	end
 
 	def incrementLevels(l)
+		@level=@level+l
+		if @level>10
+			@level=10
+		end
 	end
 
 	def decrementLevels(l)
+		@level=@level -l
+		if @level<1
+			@level=1
+		end
 	end
 
 	def setPendingBadConsequence(b)
+		@pendingBadConsequence=b
 	end
 
 	def die
@@ -39,9 +50,17 @@ class Player
 	end
 
 	def dieIfNoTreasures
+		if @hiddenTreasures.empty? && @visibleTreasures.empty?
+			@dead=true
+		end
 	end
 
 	def canIBuyLevels(l)
+		if (@level+l)<10
+			true
+		else
+			false
+		end
 	end
 
 	protected
@@ -57,7 +76,24 @@ class Player
 
 	def applyBadConsequence(bad)
 	end
-
+	def getCombatLevel
+		#vemos si esta equipado el collar y devolvemos una puntuacion u otra 
+		puntuacionMax=0
+		puntuacionMin=0
+		encontrado=false
+		for tesoro in @visibleTreasures
+			if tesoro.getType==TreasureKind::NECKLACE
+				encontrado=true				
+			end
+			puntuacionMin=puntuacionMin+tesoro.getMinBonus
+			puntuacionMax=puntuacionMax+tesoro.getMaxBonus
+		end
+		if encontrado==true
+			return puntuacionMax
+		else
+			puntuacionMin
+		end
+	end
 	def makeTreasureVisible(t)
 	end
 
@@ -76,25 +112,39 @@ class Player
 	attr_reader :level, :visibleTreasures, :hiddenTreasures
 
 	def validState
+		if @pendingBadConsequence==nil && @hiddenTreasures.length<5
+			true
+		else
+			false
+		end
+
 	end
 
 	def initTreasures
 	end
 
 	def isDead
+		@dead
 	end
 
 	def hasVisibleTreasures
+		if @visibleTreasures.empty?
+			false
+		else
+			true
+		end
 	end
-
-
-
-
-
-
-
-
-
-
+end
+class Main
+	
+	player=Player.new('david')
+	player.bringToLive
+	player.incrementLevels(3)
+	if player.hasVisibleTreasures
+		puts 'no tienes tesoros visibles'
+	else
+		puts 'tienes tesoros visibles'
+	end
+end
 
 end
