@@ -148,10 +148,12 @@ def initMonsterCardDeck
 	@unusedMonsters << Monster.new('Bicéfalo', 20, prize, badConsequence)
 end
 
-def initMonsterCardDeck
+def shuffleTreasures
+	@unusedTreasures.shuffle!
 end
 
 def shuffleMonters
+	@unusedMonsters.shuffle!
 end
 
 public
@@ -162,9 +164,11 @@ def nextMonster
 end
 
 def giveTreasureBack(t)
+	@usedTreasures << t
 end
 
 def giveMonsterBack(m)
+	@usedMonsters << m
 end
 
 def initCards
