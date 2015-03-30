@@ -27,12 +27,19 @@ class BadConsequence
 		new(txt, level, -1, -1, false, sVisibleTreasures, sHiddenTreasures)
 	end
 
-	private_class_method :new
 
 	def isEmpty
+		empty = false
+		if(levels == -1 && nVisibleTreasures == -1 && nHiddenTreasures == -1 && death == false && 
+			specificVisibleTreasures.empty? == true && specificHiddenTreasures.empty? == true)
+			empty = true
+		end
+
+		return empty
 	end
 
 	def kills
+		return death
 	end
 
 	def substractVisibleTreasure(t)
@@ -82,5 +89,20 @@ class BadConsequence
 		"\nTexto: " + @text + "\nNiveles: " + nivel + "\nNumero tesoros visibles: " + nVisible_string + "\nNumero tesoros ocultos: " + nHidden_string +
 		"\nMuerte: " + muerto + "\nTesoros visibles especificos: " + tesorosVisibles + "\nTesoros ocultos especificos: " + tesorosOcultos
 	end
+
+	private_class_method :new
+
 end
+
+#Pruebas
+malRollito = BadConsequence.newLevelNumberOfTreasures("",-1,-1,-1)
+malRollito1 = BadConsequence.newDeath("")
+if malRollito.isEmpty
+	puts "El mal rollito esta vacio"
+end
+
+if malRollito1.kills
+	puts "El mal rollito 1 te mata"
+end
+
 end 
