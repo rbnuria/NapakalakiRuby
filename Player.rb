@@ -17,7 +17,7 @@ class Player
 		#referencias
 		@hiddenTreasures = Array.new
 		@visibleTreasures = Array.new	
-		@pendingBadConsequence = nil	
+		@pendingBadConsequence = BadConsequence.new
 	end
 
 	private
@@ -112,7 +112,7 @@ class Player
 	attr_reader :level, :visibleTreasures, :hiddenTreasures
 
 	def validState
-		if @pendingBadConsequence==nil && @hiddenTreasures.length<5
+		if @pendingBadConsequence.isEmpty && @hiddenTreasures.length<5
 			true
 		else
 			false
@@ -136,7 +136,7 @@ class Player
 	end
 end
 class Main
-	
+
 	player=Player.new('david')
 	player.bringToLive
 	player.incrementLevels(3)
