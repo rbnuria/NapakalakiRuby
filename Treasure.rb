@@ -1,5 +1,5 @@
 require_relative 'TreasureKind.rb'
-module NapakalakiRuby
+module Model
 class Treasure
 	#Metodo initialize de la clase Treasure
 	def initialize(name, coins, min, max, t)

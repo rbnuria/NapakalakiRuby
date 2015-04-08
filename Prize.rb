@@ -1,5 +1,5 @@
 require_relative 'TreasureKind.rb'
-module NapakalakiRuby
+module Model
 class Prize
 
 	#Metodo initialize de la clase Prize

@@ -1,9 +1,9 @@
 #encoding: utf-8
 require 'singleton'
-require_relative 'treasure_kind.rb'
-require_relative 'cultist.rb'
+require_relative 'TreasureKind.rb'
+#require_relative 'cultist.rb'
 
-module NapakalakiRuby
+module Model
 
 class CardDealer
 include Singleton
@@ -29,7 +29,7 @@ def initTreasureCardDeck
 	@unusedTreasures <<Treasure.new('Camiseta de la UGR', 100, 1, 7, [TreasureKind::ARMOR])
 	@unusedTreasures <<Treasure.new('Clavo de rail ferroviario', 400, 3, 6, [TreasureKind::ONEHAND])
 	@unusedTreasures <<Treasure.new('Cuchillo de sushi arcano', 300, 2, 3, [TreasureKind::ONEHAND])
-	@unusedTreasures <<Treasure.new('Fez alopodo', 700, 3, 5, [TreasureKind:::HELMET])
+	@unusedTreasures <<Treasure.new('Fez alopodo', 700, 3, 5, [TreasureKind::HELMET])
  	@unusedTreasures <<Treasure.new("Hacha prehistorica", 500, 2, 5, [TreasureKind::ONEHAND])
     @unusedTreasures <<Treasure.new("El aparato del Pr. Tesla", 900, 4, 8, [TreasureKind::ARMOR])
     @unusedTreasures <<Treasure.new("Gaita", 500, 4, 5, [TreasureKind::BOTHHAND])
@@ -184,6 +184,7 @@ end
 def initCards
 	
 end
-
+end
+end
 
 

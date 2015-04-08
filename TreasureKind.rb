@@ -1,4 +1,4 @@
-module NapakalakiRuby
+module Model
 	module TreasureKind
 		#Tesoro de una mano
 		ONEHAND=:ONEHAND

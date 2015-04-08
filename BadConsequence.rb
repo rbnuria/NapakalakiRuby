@@ -1,7 +1,7 @@
 #encoding: utf-8
 require_relative 'TreasureKind.rb'
 require_relative 'Prize.rb'
-module NapakalakiRuby
+module Model
 class BadConsequence
 
 	
@@ -121,14 +121,14 @@ class BadConsequence
 end
 
 #Pruebas
-malRollito = BadConsequence.newLevelNumberOfTreasures("",-1,-1,-1)
-malRollito1 = BadConsequence.newDeath("")
-if malRollito.isEmpty
-	puts "El mal rollito esta vacio"
-end
+#malRollito = BadConsequence.newLevelNumberOfTreasures("",-1,-1,-1)
+#malRollito1 = BadConsequence.newDeath("")
+#if malRollito.isEmpty
+#	puts "El mal rollito esta vacio"
+#end
 
-if malRollito1.kills
-	puts "El mal rollito 1 te mata"
-end
+#if malRollito1.kills
+#	puts "El mal rollito 1 te mata"
+#end
 
 end 
