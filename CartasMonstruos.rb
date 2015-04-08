@@ -3,7 +3,7 @@ require_relative 'BadConsequence.rb'
 require_relative 'TreasureKind.rb'
 require_relative 'Prize.rb'
 require_relative 'Monster.rb'
-module NapakalakiRuby
+module Model
 class CartasMonstruos
 	def initialize 
 		@monsters = Array.new

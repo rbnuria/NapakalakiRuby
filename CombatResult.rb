@@ -1,5 +1,5 @@
 #encoding: utf-8
-module NapakalakiRuby
+module Model
 	module CombatResult
 		#El jugador gana el combate y la partida
 		WINANDWINGAME=:WINANDWINGAME

@@ -4,7 +4,7 @@ require_relative 'BadConsequence.rb'
 require_relative 'Dice.rb'
 require_relative 'CardDealer.rb'
 require_relative 'CombatResult.rb'
-module NapakalakiRuby
+module Model
 class Player
 
 	#Atributo de clase que almacena el máximo número de tesoros ocultos que podemos almacenar
@@ -13,13 +13,13 @@ class Player
 	#Metodo initialize de la clase Player
 	def initialize(name)
 		@name = name
-		@dead = true 
+		@dead = true
 		@level = 1
 
 		#referencias
 		@hiddenTreasures = Array.new
 		@visibleTreasures = Array.new	
-		@pendingBadConsequence = BadConsequence.new
+		@pendingBadConsequence = nil
 	end
 
 	#Metodo privado que devuelve a la vida al jugador haciendo su atributo death falso
@@ -58,6 +58,7 @@ class Player
 	end
 
 	#Metodo que hace morir al jugador si no tiene tesoros de ningún tipo
+
 	def dieIfNoTreasures
 		if @hiddenTreasures.empty? && @visibleTreasures.empty?
 			@dead=true
@@ -95,8 +96,8 @@ class Player
 	#el máximo bonus cada tesoro y el mínimo en caso contrario.
 	def getCombatLevel
 		#vemos si esta equipado el collar y devolvemos una puntuacion u otra 
-		puntuacionMax=0
-		puntuacionMin=0
+		puntuacionMax=@level
+		puntuacionMin=@level
 		encontrado=false
 		for tesoro in @visibleTreasures
 			if tesoro.getType==TreasureKind::NECKLACE
@@ -166,13 +167,13 @@ end
 class Main
 
 	player=Player.new('david')
-	player.bringToLive
-	player.incrementLevels(3)
+	
 	if player.hasVisibleTreasures
 		puts 'no tienes tesoros visibles'
 	else
 		puts 'tienes tesoros visibles'
 	end
+		
 end
 
 end

@@ -2,7 +2,7 @@
 require_relative 'BadConsequence.rb'
 require_relative 'TreasureKind.rb'
 require_relative 'Prize.rb'
-module NapakalakiRuby
+module Model
 class Monster
 	#Metodo initialize de la clase Monster
 	def initialize(name,level,prize,bc)

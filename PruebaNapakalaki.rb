@@ -4,7 +4,7 @@ require_relative 'TreasureKind.rb'
 require_relative 'Prize.rb'
 require_relative 'Monster.rb'
 require_relative 'CartasMonstruos.rb'
-module NapakalakiRuby
+module Model
 class Main
 
 	monstruos = CartasMonstruos.new
