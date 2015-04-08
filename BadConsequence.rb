@@ -1,4 +1,4 @@
-#encoding: utf-8
+ #encoding: utf-8
 require_relative 'TreasureKind.rb'
 require_relative 'Prize.rb'
 module Model
@@ -53,8 +53,8 @@ class BadConsequence
 	#ni perdida de tesoros
 	def isEmpty
 		empty = false
-		if(levels == -1 && nVisibleTreasures == -1 && nHiddenTreasures == -1 && 
-			specificVisibleTreasures.empty? == true && specificHiddenTreasures.empty? == true)
+		if(levels == -1 && nVisibleTreasures == -1 && nHiddenTreasures == -1 && death == false &&
+			specificVisibleTreasures.empty? == true && specificHiddenTreasures.empty? == true )
 			empty = true
 		end
 
@@ -131,4 +131,24 @@ end
 #	puts "El mal rollito 1 te mata"
 #end
 
-end 
+#Pruebas
+	
+
+#bc = BadConsequence.newDeath('a')
+#bc1 = BadConsequence.newLevelNumberOfTreasures('ey', -1, -1, -1)
+#bc2 = BadConsequence.newLevelSpecificTreasures('e', -1, Array.new, Array.new)
+
+#@malRollitos = Array.new
+#malRollitos = [malRollito, bc, bc1, bc2]
+
+#for badconsequence in malRollitos
+	#if badconsequence.isEmpty
+		#puts "Toy vacio" + badconsequence.to_s + "\n"
+#end
+
+	#if badconsequence.kills
+		#puts "Hay muerte" +badconsequence.to_s + "\n"
+	#end
+#end
+
+#end 

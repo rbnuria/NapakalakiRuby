@@ -142,7 +142,6 @@ class Player
 		else
 			false
 		end
-
 	end
 
 
