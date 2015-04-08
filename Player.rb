@@ -7,8 +7,10 @@ require_relative 'CombatResult.rb'
 module NapakalakiRuby
 class Player
 
+	#Atributo de clase que almacena el máximo número de tesoros ocultos que podemos almacenar
 	@@MAXHIDDENTREASURES = 4
 
+	#Metodo initialize de la clase Player
 	def initialize(name)
 		@name = name
 		@dead = true 
@@ -20,11 +22,14 @@ class Player
 		@pendingBadConsequence = BadConsequence.new
 	end
 
+	#Metodo privado que devuelve a la vida al jugador haciendo su atributo death falso
 	private
 	def bringToLive
 		@dead=false
 	end
 
+	#Metodo que incrementa tu nivel actual en tantos niveles como le pasemos como parámetros
+	#teniendo en cuenta que el máximo número de niveles es 10
 	def incrementLevels(l)
 		@level=@level+l
 		if @level>10
@@ -32,6 +37,8 @@ class Player
 		end
 	end
 
+	#Metodo que decrementa tu nivel actual en tantos niveles como le pasemos como parámetros
+	#teniendo en cuenta que el mínimo número de niveles es 1
 	def decrementLevels(l)
 		@level=@level -l
 		if @level<1
@@ -39,6 +46,7 @@ class Player
 		end
 	end
 
+	#Metodo que asigna al atributo pendingBadConsequence el objeto pasado como argumento
 	def setPendingBadConsequence(b)
 		@pendingBadConsequence=b
 	end
@@ -49,12 +57,16 @@ class Player
 	def discardNecklaceIfVisible
 	end
 
+	#Metodo que hace morir al jugador si no tiene tesoros de ningún tipo
 	def dieIfNoTreasures
 		if @hiddenTreasures.empty? && @visibleTreasures.empty?
 			@dead=true
 		end
 	end
 
+	#Metodo que consulta si puedes comprar tantos niveles como le pasamos como parametros, 
+	#teniendo en cuenta que no puedes ganar comprando niveles, es decir, si comprando los niveles
+	#alcanzas o superas el nivel 10, no podrás compras los niveles.
 	def canIBuyLevels(l)
 		if (@level+l)<10
 			true
@@ -76,6 +88,11 @@ class Player
 
 	def applyBadConsequence(bad)
 	end
+
+	#Metodo que devuelve el nivel con el que juega el jugador la batalla teniendo en cuenta
+	#el bonus que suman los tesoros visibles.
+	#Ademas tenemos en cuenta si lleva puesto el collar o no, ya que en caso de llevarlo puesta suma
+	#el máximo bonus cada tesoro y el mínimo en caso contrario.
 	def getCombatLevel
 		#vemos si esta equipado el collar y devolvemos una puntuacion u otra 
 		puntuacionMax=0
@@ -109,8 +126,15 @@ class Player
 	def buyLevels(visible, hidden)
 	end
 
-	attr_reader :level, :visibleTreasures, :hiddenTreasures
+	#Nivel del jugador 
+	attr_reader :level
+	#Array con los tesoros visibles del jugador
+	attr_reader :visibleTreasures
+	#Array con los tesoros invisibles del jugador
+	attr_reader :hiddenTreasures
 
+	#Metodo que devuelve si el jugador está en un estado valid, es decir, si no tiene 
+	#mal rollo pendiente y si el número de tesoros ocultos es menor o igual que 4
 	def validState
 		if @pendingBadConsequence.isEmpty && @hiddenTreasures.length<5
 			true
@@ -120,13 +144,16 @@ class Player
 
 	end
 
+
 	def initTreasures
 	end
 
+	#Metodo que devuelve si un jugador está muerto o no
 	def isDead
 		@dead
 	end
 
+	#Metodo que devuelve si un jugador tiene tesoros visibles o no
 	def hasVisibleTreasures
 		if @visibleTreasures.empty?
 			false
@@ -135,6 +162,7 @@ class Player
 		end
 	end
 end
+
 class Main
 
 	player=Player.new('david')

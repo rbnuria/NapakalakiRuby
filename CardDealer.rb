@@ -1,3 +1,4 @@
+#encoding: utf-8
 require 'singleton'
 require_relative 'treasure_kind.rb'
 require_relative 'cultist.rb'
@@ -7,6 +8,7 @@ module NapakalakiRuby
 class CardDealer
 include Singleton
 
+#Metodo initialie de la clase CardDealer en el cual inicializamos los cuatro atributos (Arrays) como Arrays vacios
 def initialize
 	@unusedMonsters=Array.new
 	@usedMonsters = Array.new
@@ -15,25 +17,26 @@ def initialize
 
 end
 
+#Metodo que inicializa el taco de cartas con todos los tesoros que intervedrán en el juego
 def initTreasureCardDeck
-	@unusedTreasures<<Treasure.new('¡Si mi amo!', 0, 4,7, [TreasureKind::HELMET])
-	@unusedTreasures<<Treasure.new('Botas de investigacion', 600, 3, 4, [TreasureKind::SHOE])
-	@unusedTreasures<<Treasure.new('Capucha de Cthulhu', 500, 3, 5, [TreasureKind::HELMET])
-	@unusedTreasures<<Treasure.new('A prueba de balas', 400, 2, 5, [TreasureKind::ARMOR])
-	@unusedTreasures<<Treasure.new('Botas de lluvia acida', 800, 1, 1, [TreasureKind::SHOE])
-	@unusedTreasures<<Treasure.new('Casco minero', 400, 2, 4, [TreasureKind::HELMET])
-	@unusedTreasures<<Treasure.new('Ametralladora Thompson', 600, 4, 8, [TreasureKind::BOTHHANDS])
-	@unusedTreasures<<Treasure.new('Camiseta de la UGR', 100, 1, 7, [TreasureKind::ARMOR])
-	@unusedTreasures<<Treasure.new('Clavo de rail ferroviario', 400, 3, 6, [TreasureKind::ONEHAND])
-	@unusedTreasures<<Treasure.new('Cuchillo de sushi arcano', 300, 2, 3, [TreasureKind::ONEHAND])
-	@unusedTreasures<<Treasure.new('Fez alopodo', 700, 3, 5, [TreasureKind:::HELMET])
- 	@unusedTreasures<<Treasure.new("Hacha prehistorica", 500, 2, 5, [TreasureKind::ONEHAND])
-    @unusedTreasures<<Treasure.new("El aparato del Pr. Tesla", 900, 4, 8, [TreasureKind::ARMOR])
-    @unusedTreasures<<Treasure.new("Gaita", 500, 4, 5, [TreasureKind::BOTHHAND])
-    @unusedTreasures<<Treasure.new("Insecticida", 300, 2, 3, [TreasureKind::ONEHAND])
-    @unusedTreasures<<Treasure.new("Escopeta de 3 caniones", 700, 4, 6, [TreasureKind::BOTHHAND])
-    @unusedTreasures<<Treasure.new("Garabato Mistico", 300, 2, 2, [TreasureKind::ONEHAND])
-    @unusedTreasures<<Treasure.new("La fuerza de Mr. T", 1000, 0, 0, [TreasureKind::NECKLACE])
+	@unusedTreasures <<Treasure.new('¡Si mi amo!', 0, 4,7, [TreasureKind::HELMET])
+	@unusedTreasures <<Treasure.new('Botas de investigacion', 600, 3, 4, [TreasureKind::SHOE])
+	@unusedTreasures <<Treasure.new('Capucha de Cthulhu', 500, 3, 5, [TreasureKind::HELMET])
+	@unusedTreasures <<Treasure.new('A prueba de balas', 400, 2, 5, [TreasureKind::ARMOR])
+	@unusedTreasures <<Treasure.new('Botas de lluvia acida', 800, 1, 1, [TreasureKind::SHOE])
+	@unusedTreasures <<Treasure.new('Casco minero', 400, 2, 4, [TreasureKind::HELMET])
+	@unusedTreasures <<Treasure.new('Ametralladora Thompson', 600, 4, 8, [TreasureKind::BOTHHANDS])
+	@unusedTreasures <<Treasure.new('Camiseta de la UGR', 100, 1, 7, [TreasureKind::ARMOR])
+	@unusedTreasures <<Treasure.new('Clavo de rail ferroviario', 400, 3, 6, [TreasureKind::ONEHAND])
+	@unusedTreasures <<Treasure.new('Cuchillo de sushi arcano', 300, 2, 3, [TreasureKind::ONEHAND])
+	@unusedTreasures <<Treasure.new('Fez alopodo', 700, 3, 5, [TreasureKind:::HELMET])
+ 	@unusedTreasures <<Treasure.new("Hacha prehistorica", 500, 2, 5, [TreasureKind::ONEHAND])
+    @unusedTreasures <<Treasure.new("El aparato del Pr. Tesla", 900, 4, 8, [TreasureKind::ARMOR])
+    @unusedTreasures <<Treasure.new("Gaita", 500, 4, 5, [TreasureKind::BOTHHAND])
+    @unusedTreasures <<Treasure.new("Insecticida", 300, 2, 3, [TreasureKind::ONEHAND])
+    @unusedTreasures <<Treasure.new("Escopeta de 3 caniones", 700, 4, 6, [TreasureKind::BOTHHAND])
+    @unusedTreasures <<Treasure.new("Garabato Mistico", 300, 2, 2, [TreasureKind::ONEHAND])
+    @unusedTreasures <<Treasure.new("La fuerza de Mr. T", 1000, 0, 0, [TreasureKind::NECKLACE])
     @unusedTreasures <<Treasure.new("La rebeca metalica", 400, 2, 3, [TreasureKind::ARMOR])
     @unusedTreasures <<Treasure.new("Mazo de los antiguos", 200, 3, 4, [TreasureKind::ONEHAND])
     @unusedTreasures <<Treasure.new("Necro-playboycon", 300, 3, 5, [TreasureKind::ONEHAND])
@@ -48,8 +51,11 @@ def initTreasureCardDeck
     @unusedTreasures <<Treasure.new("Zapato deja-amigos", 500, 0, 1, [TreasureKind::SHOE])
     @unusedTreasures <<Treasure.new("Shogulador", 600, 1, 1, [TreasureKind::BOTHHAND])
     @unusedTreasures <<Treasure.new("Varita de atizamiento", 400, 3, 4, [TreasureKind::ONEHAND])
+
+
 end
 
+#Metodo que inicializa el taco de cartas con todos los monstruos que intervendrán en el juego
 def initMonsterCardDeck
 	#3 Byakhees de bonanza
 	prize = Prize.new(2,1)
@@ -148,10 +154,12 @@ def initMonsterCardDeck
 	@unusedMonsters << Monster.new('Bicéfalo', 20, prize, badConsequence)
 end
 
+#Metodo que baraja el taco de cartas de tesoros que aún no hemos utilizado
 def shuffleTreasures
 	@unusedTreasures.shuffle!
 end
 
+#Metodo que baraja el taco de cartas de monstruos que aún no hemos utilizado
 def shuffleMonters
 	@unusedMonsters.shuffle!
 end
@@ -163,10 +171,12 @@ end
 def nextMonster
 end
 
+#Metodo que añade un tesoro pasado como argumento al taco de tesoros ya utilizados
 def giveTreasureBack(t)
 	@usedTreasures << t
 end
 
+#Metodo que añade un monstruo pasado como argumento al taco de monstruos ya utilizados
 def giveMonsterBack(m)
 	@usedMonsters << m
 end

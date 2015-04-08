@@ -1,3 +1,4 @@
+#encoding: utf-8
 require_relative 'Napakalaki.rb'
 require_relative 'Monster.rb'
 require_relative 'Player.rb'
@@ -5,6 +6,8 @@ require 'singleton'
 module NapakalakiRuby     
 class Napakalaki
 include Singleton
+	
+	#Metodo initialize de la clase Napakalaki
 	def initialize 
 		@currentMonster=Monster.new
 		@currentPlayers=Player.new
