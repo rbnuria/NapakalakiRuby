@@ -19,7 +19,7 @@ class Player
 		#referencias
 		@hiddenTreasures = Array.new
 		@visibleTreasures = Array.new	
-		@pendingBadConsequence = BadConsequence.new
+		@pendingBadConsequence = nil
 	end
 
 	#Metodo privado que devuelve a la vida al jugador haciendo su atributo death falso
