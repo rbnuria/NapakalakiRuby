@@ -1,5 +1,5 @@
-David: Player en Ruby
+David: Napakalaki en Ruby
        Resto en Java
 
-Nuria: Player en Java
+Nuria: Napakalaki en Java
        Resto en Ruby
