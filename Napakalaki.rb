@@ -23,6 +23,7 @@ include Singleton
 
 	public 
 	
+	
 
 	def combat
 	end

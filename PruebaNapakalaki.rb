@@ -6,7 +6,6 @@ require_relative 'Monster.rb'
 require_relative 'CartasMonstruos.rb'
 module Model
 class Main
-
 	monstruos = CartasMonstruos.new
 
 	#Monstruos cuyo nivel de combate es superior a 10

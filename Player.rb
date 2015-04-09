@@ -6,6 +6,7 @@ require_relative 'CardDealer.rb'
 require_relative 'CombatResult.rb'
 module Model
 class Player
+	
 
 	#Atributo de clase que almacena el máximo número de tesoros ocultos que podemos almacenar
 	@@MAXHIDDENTREASURES = 4

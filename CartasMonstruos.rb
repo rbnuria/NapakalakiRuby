@@ -6,6 +6,7 @@ require_relative 'Monster.rb'
 module Model
 class CartasMonstruos
 	def initialize 
+		
 		@monsters = Array.new
 
 		#3 Byakhees de bonanza

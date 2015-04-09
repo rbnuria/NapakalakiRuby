@@ -3,6 +3,7 @@ require_relative 'TreasureKind.rb'
 require_relative 'Prize.rb'
 module Model
 class BadConsequence
+	
 
 	#Nombre del mal rollo
 	attr_reader :text
