@@ -1,10 +1,9 @@
- #encoding: utf-8
+#encoding: utf-8
 require_relative 'TreasureKind.rb'
 require_relative 'Prize.rb'
 module Model
 class BadConsequence
 
-	
 	#Nombre del mal rollo
 	attr_reader :text
 	#Niveles que quita el mal rollo
@@ -151,4 +150,4 @@ end
 	#end
 #end
 
-#end 
+end 

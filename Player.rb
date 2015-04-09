@@ -9,6 +9,7 @@ class Player
 
 	#Atributo de clase que almacena el máximo número de tesoros ocultos que podemos almacenar
 	@@MAXHIDDENTREASURES = 4
+	@pendingBadConsequence
 
 	#Metodo initialize de la clase Player
 	def initialize(name)
@@ -46,11 +47,14 @@ class Player
 		end
 	end
 
+	public
+
 	#Metodo que asigna al atributo pendingBadConsequence el objeto pasado como argumento
 	def setPendingBadConsequence(b)
 		@pendingBadConsequence=b
 	end
 
+	private
 	def die
 	end
 
@@ -137,7 +141,7 @@ class Player
 	#Metodo que devuelve si el jugador está en un estado valid, es decir, si no tiene 
 	#mal rollo pendiente y si el número de tesoros ocultos es menor o igual que 4
 	def validState
-		if @pendingBadConsequence.isEmpty && @hiddenTreasures.length<5
+		if (@pendingBadConsequence == nil or @pendingBadConsequence.isEmpty) and @hiddenTreasures.length<5
 			true
 		else
 			false
@@ -161,18 +165,17 @@ class Player
 			true
 		end
 	end
-end
 
-class Main
-
-	player=Player.new('david')
-	
-	if player.hasVisibleTreasures
-		puts 'no tienes tesoros visibles'
-	else
-		puts 'tienes tesoros visibles'
+	#EXAMEN
+	def setVisibleTreasures(treasures)
+		@visibleTreasures = treasures
 	end
-		
+
+	def setHiddenTreasures(treasures)
+		@hiddenTreasures = treasures
+	end
+	#FINEXAMEN
 end
+	
 
 end

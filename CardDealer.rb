@@ -10,7 +10,7 @@ include Singleton
 
 #Metodo initialie de la clase CardDealer en el cual inicializamos los cuatro atributos (Arrays) como Arrays vacios
 def initialize
-	@unusedMonsters=Array.new
+	@unusedMonsters= Array.new
 	@usedMonsters = Array.new
 	@usedTreasures = Array.new
 	@unusedTreasures = Array.new
