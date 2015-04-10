@@ -10,15 +10,25 @@ include Singleton
 	#Metodo initialize de la clase Napakalaki
 	def initialize 
 		@currentMonster=Monster.new
-		@currentPlayers=Player.new
+		@currentPlayer=Player.new
 		@players = Array.new
+		@currentPlayersIndex=-1
 	end	
 
 	private
 	def initPlayers(names)
+		for n in names
+			@players<<Player.new(n)
+		end		
 	end
 
 	def nextPlayer
+		if @currentPlayersIndex == -1
+			@currentPlayersIndex=rand(@players.length-1)
+		else
+			@currentPlayersIndex=(@currentPlayersIndex+1) % @players.length
+		end
+		@currentPlayer=@players.at(@currentPlayersIndex)
 	end
 
 	public 
@@ -44,9 +54,11 @@ include Singleton
 	end
 
 	def getCurrentPlayer
+		@currentPlayer
 	end
 
 	def getCurrentMonster
+		@currentMonster
 	end
 
 	def canMakeTreasureVisible(t)
@@ -61,10 +73,61 @@ include Singleton
 	def nextTurn
 	end
 
-	def nextTurnAllowed
+	def nextTurnIsAllowed
+		@currentPlayer.validState
 	end
 
 	def endOfGame(result)
+		if result==CombatResult::WINANDWINGAME
+			true
+		else
+			false
+		end
 	end
 end
+=begin
+	jugador=Player.new("David")
+	jug=Player.new("manolo")
+	jugado=Player.new("lily")
+	visibles=Array.new
+	invisibles=Array.new
+	visibles<<Treasure.new('¡Si mi amo!', 0, 4,7, [TreasureKind::HELMET])
+	visibles<<Treasure.new('¡Si mi amo!', 0, 4,7, [TreasureKind::HELMET])
+	visibles<<Treasure.new('¡Si mi amo!', 0, 4,7, [TreasureKind::HELMET])	
+	invisibles<<Treasure.new('¡Si mi amo!', 0, 4,7, [TreasureKind::HELMET])
+	invisibles<<Treasure.new('¡Si mi amo!', 0, 4,7, [TreasureKind::HELMET])
+	invisibles<<Treasure.new('¡Si mi amo!', 0, 4,7, [TreasureKind::HELMET])
+	invisibles<<Treasure.new('¡Si mi amo!', 0, 4,7, [TreasureKind::HELMET])
+	invisibles<<Treasure.new('¡Si mi amo!', 0, 4,7, [TreasureKind::HELMET])
+	invisibles<<Treasure.new('¡Si mi amo!', 0, 4,7, [TreasureKind::HELMET])
+	invisibles<<Treasure.new('¡Si mi amo!', 0, 4,7, [TreasureKind::HELMET])
+
+	jugador.setVisibleTreasureList(visibles)
+	jugador.setHiddenTreasureList(invisibles)
+	
+	bc2 = BadConsequence.newLevelSpecificTreasures('e', -1, Array.new, Array.new)
+	
+	jugador.setPendingBadConsequence(bc2)
+	prueba=Napakalaki.new
+	jugadores=Array.new
+	jugadores<<jugador
+	jugadores<<jug
+	jugadores<<jugado
+	prueba.initPlayers(jugadores)
+	prueba.nextPlayer
+	if prueba.nextTurnIsAllowed
+		prueba.nextPlayer
+		puts "el siguiente esta permitido y es "
+		puts prueba.getCurrentPlayer
+	else
+		puts "estado invalido"
+	end
+	if prueba.nextTurnIsAllowed
+		prueba.nextPlayer
+		puts "el siguiente esta permitido y es "
+		puts prueba.getCurrentPlayer
+	else
+		puts "estado invalido"
+	end
+=end
 end

@@ -48,14 +48,12 @@ class Player
 		end
 	end
 
-	public
 
 	#Metodo que asigna al atributo pendingBadConsequence el objeto pasado como argumento
 	def setPendingBadConsequence(b)
 		@pendingBadConsequence=b
 	end
 
-	private
 	def die
 	end
 
@@ -166,16 +164,14 @@ class Player
 			true
 		end
 	end
-
-	#EXAMEN
-	def setVisibleTreasures(treasures)
-		@visibleTreasures = treasures
-	end
-
-	def setHiddenTreasures(treasures)
-		@hiddenTreasures = treasures
-	end
-	#FINEXAMEN
+	#def setVisibleTreasureList(t)
+	#	@visibleTreasures=t
+	#end
+	#def setHiddenTreasureList(t)
+	#	@hiddenTreasures=t
+		
+	#end
+	
 end
 	
 
