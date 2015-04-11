@@ -58,6 +58,13 @@ class Player
 	end
 
 	def discardNecklaceIfVisible
+		for treasure in visibleTreasures
+			if treasure.getType == TreasureKind::NECKLACE
+				cardealer = CardDealer.getInstance
+				cardealer.giveTreasureBack(treasure)
+				visibleTreasures.delete(treasue)
+			end
+		end
 	end
 
 	#Metodo que hace morir al jugador si no tiene tesoros de ningún tipo
@@ -81,6 +88,13 @@ class Player
 
 	protected
 	def computeGoldCoinsValue(t)
+		value = 0
+		for treasure in t
+			value = value + treasure.goldCoins
+		end
+
+		return value/1000
+
 	end
 
 	public
@@ -119,9 +133,32 @@ class Player
 	end
 
 	def canMakeTreasureVisible(t)
+		numOneHand = 0
+
+		for treasure in visibleTreasures
+			if treasure.getType == t.getType
+				if t.getType == TreasureKind::ONEHAND
+					if numOneHand == 1
+						return false
+					else
+						numOneHand = numOneHand + 1
+					end
+				end
+			else
+				if (t.getType == TreasureKind::ONEHAND and t.getType == TreasureKind::BOTHHANDS) or (t.getType == TreasureKind::BOTHHANDS and t.getType == TreasureKind::ONEHANDS)
+					return false
+				end
+			end
+		end
+
+		return true
+
+	end
+		
 	end
 
 	def discardVisibleTreasure(t)
+
 	end
 
 	def discardHiddenTreasure(t)
@@ -164,6 +201,7 @@ class Player
 			true
 		end
 	end
+
 	#def setVisibleTreasureList(t)
 	#	@visibleTreasures=t
 	#end

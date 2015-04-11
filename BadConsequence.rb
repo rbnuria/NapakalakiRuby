@@ -68,9 +68,32 @@ class BadConsequence
 
 
 	def substractVisibleTreasure(t)
+		#Si no esta el tesoro t que hacemos?
+		tipo = t.getType
+		noencontrado = true
+		for treasure in @specificVisibleTreasures
+			if noencontrado
+				if treasure.getType == tipo
+					@specificVisibleTreasures.delete(tipo)
+					noencontrado = false
+				end
+			end
+		end
 	end
 
 	def substractHiddenTreasure(t)
+		#Si no esta el tesoro t que hacemos?
+		tipo = t.getType
+		noencontrado = true
+		for treasure in @specificHiddenTreasures
+			if noencontrado
+				if treasure.getType == tipo
+					@specificHiddenTreasures.delete(tipo)
+					noencontrado = false
+				end
+			end
+		end
+	end
 	end
 
 	def adjustToFitTreasureLists(v, h)

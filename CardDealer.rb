@@ -166,9 +166,39 @@ include Singleton
 
 	public
 	def nextTreasure
+		#Comprobamos si esta vacia y la rellenamos otra vez
+		if @unusedTreasures.empty?
+			for treasure in @usedTreasures
+				@unusedTreasures << treasure
+			end
+			@usedTreasures = Array.new
+			shuffleTreasures
+		end
+
+			t = @unused_treasures[0]
+    		giveTreasureBack(t)
+    		@unused_treasures.delete(t)
+
+    		return t
+		end
 	end
 
 	def nextMonster
+		#Comprobamos si esta vacia y la rellenamos otra vez
+		if @unusedTreasures.empty?
+			for treasure in @usedTreasures
+				@unusedTreasures << treasure
+			end
+			@usedTreasures = Array.new
+			shuffleTreasures
+		end
+
+			t = @unused_treasures[0]
+    		giveTreasureBack(t)
+    		@unused_treasures.delete(t)
+
+    		return t
+		end
 	end
 
 	#Metodo que añade un tesoro pasado como argumento al taco de tesoros ya utilizados
