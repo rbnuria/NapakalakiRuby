@@ -40,20 +40,20 @@ class BadConsequence
 	#Metodo de clase utilizado como "constructor" al que pasamos como parametro el nombre
 	#Siempre implica la muerte
 	def BadConsequence.newDeath(txt)
-		new(txt, -1, -1, -1, true, Array.new, Array.new)
+		new(txt, 0, 0, 0, true, Array.new, Array.new)
 	end
 
 	#Metodo de clase utilizado como "constructor" al que pasamos como parametros el nombre, el número de niveles y los Arrays de tesoros
 	#especificos que queremos quitar, tanto visibles como invisibles.
 	def BadConsequence.newLevelSpecificTreasures(txt, level, sVisibleTreasures, sHiddenTreasures)
-		new(txt, level, -1, -1, false, sVisibleTreasures, sHiddenTreasures)
+		new(txt, level, 0, 0, false, sVisibleTreasures, sHiddenTreasures)
 	end
 
 	#Metodo que devuelve true si el mal rollo esta vacío, entendiendo que mal rollo esta vacío cuando no implica ni perdida de niveles,
 	#ni perdida de tesoros
 	def isEmpty
 		empty = false
-		if(levels == -1 && nVisibleTreasures == -1 && nHiddenTreasures == -1 && death == false &&
+		if(levels == 0 && nVisibleTreasures == 0 && nHiddenTreasures == 0 && death == false &&
 			specificVisibleTreasures.empty? == true && specificHiddenTreasures.empty? == true )
 			empty = true
 		end
@@ -101,7 +101,7 @@ class BadConsequence
 
 	#Metodo to_s devuelve un string con todos los atributos del mal rollo 
 	def to_s
-		if(levels == -1)
+		if(levels == 0)
 			nivel = "No quita niveles"
 		else
 			nivel = levels.to_s
@@ -123,13 +123,13 @@ class BadConsequence
 			tesorosOcultos += @specificHiddenTreasures[i].to_s + " "
 		end
 
-		if(@nVisibleTreasures == -1)
+		if(@nVisibleTreasures == 0)
 			nVisible_string = "No utiliza número tesoros visibles"
 		else
 			nVisible_string = @nVisibleTreasures.to_s
 		end
 
-		if(@nHiddenTreasures == -1)
+		if(@nHiddenTreasures == 0)
 			nHidden_string = "No utiliza número tesoros visibles"
 		else
 			nHidden_string = @nHiddenTreasures.to_s

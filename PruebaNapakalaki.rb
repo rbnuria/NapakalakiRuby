@@ -19,8 +19,8 @@ class Main
 	#Monstruos cuyo mal rollo suponga solo perdida de niveles
 	puts "\nMonstruos cuyo malRollo solo suponga perdida de niveles"
 	for monster in monstruos.monsters
-		if monster.badConsequence.nVisibleTreasures == -1 && monster.badConsequence.nHiddenTreasures == -1 && monster.badConsequence.specificVisibleTreasures.empty? && monster.badConsequence.specificHiddenTreasures.empty?
-			if monster.badConsequence.levels != -1 
+		if monster.badConsequence.nVisibleTreasures == 0 && monster.badConsequence.nHiddenTreasures == 0 && monster.badConsequence.specificVisibleTreasures.empty? && monster.badConsequence.specificHiddenTreasures.empty?
+			if monster.badConsequence.levels != 0
 				puts monster.to_s
 			end
 		end
