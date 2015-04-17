@@ -129,7 +129,7 @@ class BadConsequence
 			nVisible_string = @nVisibleTreasures.to_s
 		end
 
-		if(@nHiddenTreasures == 0)
+		if(@nHiddenTreasures == 0s)
 			nHidden_string = "No utiliza número tesoros visibles"
 		else
 			nHidden_string = @nHiddenTreasures.to_s
