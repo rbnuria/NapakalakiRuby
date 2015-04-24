@@ -20,6 +20,10 @@ class Treasure
 	attr_reader :maxBonus
 	#Tipo de tesoro
 	attr_reader :type
+	def to_s
+		"Nombre: " +@name+ "\n\tNúmero de monedas de oro: "+@goldCoins.to_s+"\n\tNiveles que suma sin collar: "+@minBonus.to_s+"\n\tNiveles que suma con collar: "+@maxBonus.to_s+
+		" \n\tTipo de tesoro: "+@type.to_s+"\n"
+
 
 end
 end

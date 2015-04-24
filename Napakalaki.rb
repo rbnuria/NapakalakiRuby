@@ -36,21 +36,43 @@ include Singleton
 	
 
 	def combat
+		CombatResult=@currentPlayer.combat(@currentMonster)
+		dealer=CardDealer.getInstance
+		dealer.giveMonsterBack(@currentMonster)
+		CombatResult
 	end
 
 	def discardVisibleTreasure(t)
+		
+		@currentPlayer.discardVisibleTreasure(t)	
+		
+		
 	end
 
 	def discardHiddenTreasure(t)
+		
+		@currentPlayer.discardHiddenTreasure(t)			
+		
 	end
 
 	def makeTreasureVisible(t)
+		canI=self.canMakeTreasureVisible(t)
+		if canI
+			@currentPlayer.makeTreasureVisible(t)
+		end
+		canI
 	end
 
 	def buyLevels(visible,hidden)
+		canI=@currentPlayer.buyLevels(visible,hidden)
+		canI
 	end
 
-	def initGame(players)
+	def initGame(names)
+		dealer=CardDealer.getInstance
+		dealer.initCards
+		self.initPlayers(names)
+		self.nextTurn
 	end
 
 	def getCurrentPlayer
@@ -62,19 +84,32 @@ include Singleton
 	end
 
 	def canMakeTreasureVisible(t)
+		@currentPlayer.canMakeTreasureVisible(t)
 	end
-
-	def getVisibleTreasures
-	end
-
-	def getHiddenTreasures
-	end
+	attr_reader :VisibleTreasures
+	attr_reader :HiddenTreasures
+	
 
 	def nextTurn
+		stateOK=self.nextTurnIsAllowed
+		if estateOK
+			dealer=CardDealer.getInstance
+			@currentMonster=dealer.nextMonster
+			@currentPlayer=self.nextPlayer
+			dead=@currentPlayer.isDead
+			if dead
+				@currentPlayer.initTreasures
+			end
+		end
+		stateOK
 	end
 
 	def nextTurnIsAllowed
-		@currentPlayer.validState
+		if @currentPlayer==-1
+			return true
+		else
+			return @currentPlayer.validState
+		end
 	end
 
 	def endOfGame(result)

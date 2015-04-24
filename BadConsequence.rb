@@ -97,6 +97,48 @@ class BadConsequence
 	end
 
 	def adjustToFitTreasureLists(v, h)
+		
+		nVisibleTreasures=0
+		nHiddenTreasures=0
+		if v.empty? && h.empty?
+
+			if @nVisibleTreasures>v.size
+				nVisibleTreasures=v.size			
+			end
+			if @nHiddenTreasures > h.size
+				nHiddenTreasures=h.size
+			end
+			bad=BadConsequence.newLevelNumberOfTreasures(@text,0,nVisibleTreasures,nHiddenTreasures)
+		else
+			specificVisibleTreasures=Array.new
+			specificHiddenTreasures=Array.new
+			for t in @specificVisibleTreasures
+				for treasure in v 
+					if t == treasure
+						presente== true
+						break
+					end 
+				end
+				if presente
+					specificHiddenTreasures<<t
+				end
+
+			end
+			for t in @specificHiddenTreasures
+				for treasure in v 
+					if t == treasure
+						presente== true
+						break
+					end 
+				end
+				if presente
+					specificHiddenTreasures<<t
+				end
+			end
+
+			bad=BadConsequence.newLevelSpecificTreasures(@text,0,specificVisibleTreasures,specificHiddenTreasures)
+		end
+		return bad
 	end
 
 	#Metodo to_s devuelve un string con todos los atributos del mal rollo 
@@ -135,8 +177,8 @@ class BadConsequence
 			nHidden_string = @nHiddenTreasures.to_s
 		end
 
-		"\nTexto: " + @text + "\nNiveles: " + nivel + "\nNumero tesoros visibles: " + nVisible_string + "\nNumero tesoros ocultos: " + nHidden_string +
-		"\nMuerte: " + muerto + "\nTesoros visibles especificos: " + tesorosVisibles + "\nTesoros ocultos especificos: " + tesorosOcultos
+		"\nTexto: " + @text + "\n\tNiveles: " + nivel + "\n\tNumero tesoros visibles: " + nVisible_string + "\n\tNumero tesoros ocultos: " + nHidden_string +
+		"\n\tMuerte: " + muerto + "\n\tTesoros visibles especificos: " + tesorosVisibles + "\n\tTesoros ocultos especificos: " + tesorosOcultos
 	end
 
 	private_class_method :new
