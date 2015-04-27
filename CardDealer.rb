@@ -1,7 +1,6 @@
 #encoding: utf-8
 require 'singleton'
 require_relative 'TreasureKind.rb'
-#require_relative 'cultist.rb'
 
 module Model
 
@@ -32,24 +31,24 @@ include Singleton
 		@unusedTreasures <<Treasure.new('Fez alopodo', 700, 3, 5, [TreasureKind::HELMET])
 	 	@unusedTreasures <<Treasure.new("Hacha prehistorica", 500, 2, 5, [TreasureKind::ONEHAND])
 	    @unusedTreasures <<Treasure.new("El aparato del Pr. Tesla", 900, 4, 8, [TreasureKind::ARMOR])
-	    @unusedTreasures <<Treasure.new("Gaita", 500, 4, 5, [TreasureKind::BOTHHAND])
+	    @unusedTreasures <<Treasure.new("Gaita", 500, 4, 5, [TreasureKind::BOTHHANDS])
 	    @unusedTreasures <<Treasure.new("Insecticida", 300, 2, 3, [TreasureKind::ONEHAND])
-	    @unusedTreasures <<Treasure.new("Escopeta de 3 caniones", 700, 4, 6, [TreasureKind::BOTHHAND])
+	    @unusedTreasures <<Treasure.new("Escopeta de 3 caniones", 700, 4, 6, [TreasureKind::BOTHHANDS])
 	    @unusedTreasures <<Treasure.new("Garabato Mistico", 300, 2, 2, [TreasureKind::ONEHAND])
 	    @unusedTreasures <<Treasure.new("La fuerza de Mr. T", 1000, 0, 0, [TreasureKind::NECKLACE])
 	    @unusedTreasures <<Treasure.new("La rebeca metalica", 400, 2, 3, [TreasureKind::ARMOR])
 	    @unusedTreasures <<Treasure.new("Mazo de los antiguos", 200, 3, 4, [TreasureKind::ONEHAND])
 	    @unusedTreasures <<Treasure.new("Necro-playboycon", 300, 3, 5, [TreasureKind::ONEHAND])
-	    @unusedTreasures <<Treasure.new("Lanzallamas", 800, 4, 8, [TreasureKind::BOTHHAND])
+	    @unusedTreasures <<Treasure.new("Lanzallamas", 800, 4, 8, [TreasureKind::BOTHHANDS])
 	    @unusedTreasures <<Treasure.new("Necro-comicon", 100, 1, 1, [TreasureKind::ONEHAND])
-	    @unusedTreasures <<Treasure.new("Necronomicon", 800, 5, 7, [TreasureKind::BOTHHAND])
-	    @unusedTreasures <<Treasure.new("Linterna a 2 manos", 400, 3, 6, [TreasureKind::BOTHHAND])
+	    @unusedTreasures <<Treasure.new("Necronomicon", 800, 5, 7, [TreasureKind::BOTHHANDS])
+	    @unusedTreasures <<Treasure.new("Linterna a 2 manos", 400, 3, 6, [TreasureKind::BOTHHANDS])
 	    @unusedTreasures <<Treasure.new("Necro-gnomicon", 200, 2, 4, [TreasureKind::ONEHAND])
 	    @unusedTreasures <<Treasure.new("Necrotelecom", 300, 2, 3, [TreasureKind::HELMET])
 	    @unusedTreasures <<Treasure.new("Porra preternatural", 200, 2, 3, [TreasureKind::ONEHAND])
 	    @unusedTreasures <<Treasure.new("Tentacula de pega", 200, 0, 1, [TreasureKind::HELMET])
 	    @unusedTreasures <<Treasure.new("Zapato deja-amigos", 500, 0, 1, [TreasureKind::SHOE])
-	    @unusedTreasures <<Treasure.new("Shogulador", 600, 1, 1, [TreasureKind::BOTHHAND])
+	    @unusedTreasures <<Treasure.new("Shogulador", 600, 1, 1, [TreasureKind::BOTHHANDS])
 	    @unusedTreasures <<Treasure.new("Varita de atizamiento", 400, 3, 4, [TreasureKind::ONEHAND])
 
 
@@ -172,33 +171,32 @@ include Singleton
 				@unusedTreasures << treasure
 			end
 			@usedTreasures = Array.new
+			puts 'ho'
 			shuffleTreasures
 		end
 
-			t = @unused_treasures[0]
-    		giveTreasureBack(t)
-    		@unused_treasures.delete(t)
+		t = @unusedTreasures[0]
+		@unusedTreasures.delete(t)
 
-    		return t
-		end
+		return t
+		
 	end
 
 	def nextMonster
 		#Comprobamos si esta vacia y la rellenamos otra vez
-		if @unusedTreasures.empty?
-			for treasure in @usedTreasures
-				@unusedTreasures << treasure
+		if @unusedMonsters.empty?
+			for monster in @usedMonsters
+				@unusedMonsters << monster
 			end
-			@usedTreasures = Array.new
-			shuffleTreasures
+			@usedMonsters = Array.new
+			shuffleMonsters
 		end
 
-			t = @unused_treasures[0]
-    		giveTreasureBack(t)
-    		@unused_treasures.delete(t)
+		t = @unusedMonsters[0]
+		@unusedMonsters.delete(t)
 
-    		return t
-		end
+		return t
+		
 	end
 
 	#Metodo que añade un tesoro pasado como argumento al taco de tesoros ya utilizados
@@ -212,7 +210,10 @@ include Singleton
 	end
 
 	def initCards
-		
+		initMonsterCardDeck
+		shuffleMonters
+		initTreasureCardDeck
+		shuffleTreasures
 	end
 end
 end

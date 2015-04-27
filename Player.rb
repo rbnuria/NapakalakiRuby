@@ -24,6 +24,10 @@ class Player
 		@pendingBadConsequence = nil
 	end
 
+	def getLevel
+		@level
+	end
+
 	#Metodo privado que devuelve a la vida al jugador haciendo su atributo death falso
 	private
 	def bringToLive
@@ -54,23 +58,30 @@ class Player
 		@pendingBadConsequence=b
 	end
 
-	def die
-		for t in @visibleTreasures
-			@visibleTreasures.delete(t)
-		end
-		for t in @hiddenTreasures
-			@hiddenTreasures.delete(t)
-		end
-
-		@dead=true
+    def die  
 		@level=1
-
-	end
+		dealer=CardDealer.instance
+		i=0
+		while i<@visibleTreasures.length
+		    treasure=@visibleTreasures[i]
+		    dealer.giveTreasureBack(treasure)
+		    i=i+1
+		end
+		@visibleTreasures.clear
+		i=0
+		while i<@hiddenTreasures.length
+		    treasure=@hiddenTreasures[i]
+		    dealer.giveTreasureBack(treasure)
+		    i=i+1
+		end
+		@hiddenTreasures.clear
+		dieIfNoTreasures
+  	end
 
 	def discardNecklaceIfVisible
 		for treasure in @visibleTreasures
 			if treasure.getType == TreasureKind::NECKLACE
-				cardealer = CardDealer.getInstance
+				cardealer = CardDealer.instance
 				cardealer.giveTreasureBack(treasure)
 				@visibleTreasures.delete(treasure)
 			end
@@ -102,64 +113,62 @@ class Player
 		for treasure in t
 			value = value + treasure.goldCoins
 		end
-
-		return value/1000
-
+		return value
 	end
 
 	public
 
 	def applyPrize(p)
 		nLevels=p.getLevels
-		self.incrementLevels(nLevels)
-		nPrize=getTreasures
-		dealer=CardDealer.getInstance
-		for t in nPrize
+		incrementLevels(nLevels)
+		nPrize=p.getTreasures
+		dealer=CardDealer.instance
+		for i in 1 .. nPrize
 			treasure=dealer.nextTreasure
-			@hiddenTreasures.add(treasure)
+			@hiddenTreasures<<(treasure)
 		end
 	end
 
 	def combat(m)
-		myLevel=self.getCombatLevel
+		myLevel=getCombatLevel
 		levelMonster=m.getLevel
 		if myLevel>levelMonster
 			prize=m.getPrize
-			self.applyPrize(prize)
-			if self.getLevel<10
-				CombatResult=CombatResult::WIN
+			applyPrize(prize)
+			if getLevel<10
+				combatResult=CombatResult::WIN
 			else
-				CombatResult=CombatResult::WINANDWINGAME
+				combatResult=CombatResult::WINANDWINGAME
 				
 			end
 		else
-			dice=Dice.getInstance
-			escape=dice.getNumber
+			dice=Dice.instance
+			escape=dice.nextNumber
 
 			if escape < 5
 				bad=m.getBadConsequence
 				amIDead=bad.kills
 
 				if amIDead
-					self.die
-					CombatResult= CombatResult::LOSEANDDIE
+					die
+					combatResult= CombatResult::LOSEANDDIE
 				else
-					self.applyBadConsequence(bad)
-					CombatResult= CombatResult::LOSE
+					applyBadConsequence(bad)
+					combatResult= CombatResult::LOSE
 				end
 			else
-				CombatResult= CombatResult::LOSEANDSCAPE
+				combatResult= CombatResult::LOSEANDESCAPE
 			end
 		end
-		self.discardNecklaceIfVisible
-		return CombatResult
+		discardNecklaceIfVisible
+		return combatResult
 	end
 
 	def applyBadConsequence(bad)
 		nLevels=bad.getLevels
-		self.decrementLevels(nLevels)
+		decrementLevels(nLevels)
 		pendingBad=bad.adjustToFitTreasureLists(@visibleTreasures,@hiddenTreasures)
-		self.setPendingBadConsequence(pendingBad)
+		setPendingBadConsequence(pendingBad)
 	end
 
 	#Metodo que devuelve el nivel con el que juega el jugador la batalla teniendo en cuenta
@@ -186,70 +195,103 @@ class Player
 	end
 
 	def makeTreasureVisible(t)
-		@visibleTreasures<<t
+		if canMakeTreasureVisible(t)
+			@visibleTreasures<<t
+			discardHiddenTreasure(t)
+		end
 	end
 
-	def canMakeTreasureVisible(t)
+	def canMakeTreasureVisible(treasure)
 		numOneHand = 0
-
-		for treasure in @visibleTreasures
-			if treasure.getType == t.getType
-				if t.getType == TreasureKind::ONEHAND
-					if numOneHand == 1
-						return false
+		valido=true
+		for t in @visibleTreasures
+			if t.getType == treasure.getType
+				if t.getType==[TreasureKind::ONEHAND]
+					if numOneHand==2
+						valido=false					
 					else
-						numOneHand = numOneHand + 1
+						numOneHand=numOneHand+1				
 					end
+				else
+					valido=false		
 				end
 			else
-				if (t.getType == TreasureKind::ONEHAND and t.getType == TreasureKind::BOTHHANDS) or (t.getType == TreasureKind::BOTHHANDS and t.getType == TreasureKind::ONEHANDS)
-					return false
+				if (treasure.getType == [TreasureKind::ONEHAND] && t.getType == [TreasureKind::BOTHHANDS])|| (treasure.getType == [TreasureKind::BOTHHANDS] && t.getType == [TreasureKind::ONEHAND])
+					valido=false		
 				end
 			end
+			if valido==false
+				return valido
+				break
+			end
 		end
-
-		return true
+		valido
 
 	end
-		
+=begin
+	public boolean canMakeTreasureVisible(Treasure t){
+        boolean valido=true;
+        int nOneHand=0;
+        for(int i=0;i<visibleTreasures.size() && valido;++i){
+            if((visibleTreasures.get(i).getType()==t.getType())) { 
+                if(visibleTreasures.get(i).getType()==TreasureKind.ONEHAND){
+                   if(nOneHand==2)
+                        valido=false;
+                   else{
+                        nOneHand++;
+                        if(nOneHand==2)
+                            valido=false;
+                    }
+                }else
+                    valido=false;
+            }else{
+                if((t.getType()==TreasureKind.ONEHAND && visibleTreasures.get(i).getType()==TreasureKind.BOTHHANDS)||(t.getType()==TreasureKind.BOTHHANDS && visibleTreasures.get(i).getType()==TreasureKind.ONEHAND))
+                    valido=false;
+                }
+        } 
+        return valido;
+    }
+=end		
 	
 
 	def discardVisibleTreasure(t)
-		for treasure in @visibleTreasures
-			if(treasure==t)
-				treasure.remove
-				break
-			end
+		@visibleTreasures.delete(t)
+		if @visibleTreasures.empty?
+			pendingBadConsequence = nil
 		end
-		if @pendingBadConsequence!=nil and !@pendingBadConsequence.isEmpty
-			@pendingBadConsequence.substrackVisibleTreasure(t)
+
+		if (pendingBadConsequence != nil) and (pendingBadConsequence.empty? == false)
+			pendingBadConsequence.substractVisibleTreasure(t)
 		end
-		dealer=CardDealer.getInstance
-		dealer.giveTreasureBack(t)
-		self.dieIfNoTreasures	
+
+		CardDealer.instance.giveTreasureBack(t)
+		dieIfNoTreasures
+
+			
 	end
 
 	def discardHiddenTreasure(t)
-		for treasure in @HiddenTreasures
-			if(treasure==t)
-				treasure.remove
-				break
-			end
+		@hiddenTreasures.delete(t)
+		if @hiddenTreasures.empty?
+			pendingBadConsequence = nil
 		end
-		if @pendingBadConsequence!=nil and !@pendingBadConsequence.isEmpty
-			@pendingBadConsequence.substrackHiddenTreasure(t)
+
+		if (pendingBadConsequence != nil) and (pendingBadConsequence.empty? == false)
+			pendingBadConsequence.substractHiddenTreasure(t)
 		end
-		dealer=CardDealer.getInstance
-		dealer.giveTreasureBack(t)
-		self.dieIfNoTreasures
+
+		CardDealer.instance.giveTreasureBack(t)
+		dieIfNoTreasures
 	end
 
 	def buyLevels(visible, hidden)
-		levels=self.computeGoldCoinsValue(visible)
-		levels+=self.computeGoldCoinsValue(hidden)
+		levels=computeGoldCoinsValue(visible)
+		levels+=computeGoldCoinsValue(hidden)
+		levels = levels/1000
+
 		canI=canIBuyLevels(levels)
 		if canI
-			self.incrementLevels(levels)
+			incrementLevels(levels)
 			for t in visible
 				discardVisibleTreasure(t)
 			end
@@ -268,6 +310,14 @@ class Player
 	attr_reader :hiddenTreasures
 	#Nombre del jugador
 	attr_reader :name
+
+	def getHiddenTreasures
+		@hiddenTreasures
+	end
+
+	def getVisibleTreasures
+		@visibleTreasures
+	end
 	#Metodo que devuelve si el jugador está en un estado valid, es decir, si no tiene 
 	#mal rollo pendiente y si el número de tesoros ocultos es menor o igual que 4
 	def validState
@@ -280,26 +330,29 @@ class Player
 
 
 	def initTreasures
-		self.bringToLive
-		dice=Dice.getInstance
-		dealer=CardDealer.getInstance
+		bringToLive
+		dice=Dice.instance
+		dealer=CardDealer.instance
 		number=dice.nextNumber
 		if(number==1)
 			treasure=dealer.nextTreasure
-			@hiddenTreasures.add(treasure)
+			@hiddenTreasures<<treasure
 		else
 			if number < 6
 				i=0
 				while i<2
 					treasure=dealer.nextTreasure
-					@hiddenTreasures.add(treasure)
+					@hiddenTreasures<<treasure
+					i+=1
 				end
 			else
 				if number==6
 					i=0
+				end
 				while i<3
 					treasure=dealer.nextTreasure
-					@hiddenTreasures.add(treasure)
+					@hiddenTreasures<<treasure
+					i+=1
 				end	
 			end
 		end
@@ -318,13 +371,24 @@ class Player
 			true
 		end
 	end
+
 	def to_s
-		"Nombre:"+ @name+"\n\tNivel: "+@level.to_s+ "\n\tTesoros visibles: "+@visibleTreasures.to_s+"\n\tTesoros invisibles: "+@hiddenTreasures.to_s+"\n"
+		tesorosVisibles = ""
+		for treasure in @visibleTreasures
+			tesorosVisibles += treasure.to_s + "\n"
+		end
+
+		tesorosHidden = ""
+		for treasure in @hiddenTreasures
+			tesorosHidden += treasure.to_s + "\n"
+		end
+
+		combatl = getCombatLevel.to_s
+
+		"Nombre:"+ @name+"\n\tNivel: "+@level.to_s+"\n\tNivel de combate: "+combatl+ "\n\tTesoros visibles: "+tesorosVisibles+"\n\tTesoros invisibles: "+tesorosHidden+"\n"
 	end
 
 	
 	
 end
-	
-
 end

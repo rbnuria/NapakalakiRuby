@@ -4,7 +4,7 @@
 require "singleton"
 
 
-module NapakalakiGame
+module Model
 class Dice
 
 include Singleton

@@ -10,7 +10,7 @@ module Model
 		#El jugador pierde el combate y consigue escapar
 		LOSEANDESCAPE=:LOSEANDESCAPE
 		#El jugador pierde el combate y muere
-		LOSANDDIE=:LOSEANDDIE
+		LOSEANDDIE=:LOSEANDDIE
 	end
 
 end

@@ -13,6 +13,14 @@ class Prize
 	#Número de tesoros que ganas si se te aplica
 	attr_reader :treasures  
 
+	def getLevels
+		@levels
+	end
+
+	def getTreasures
+		@treasures
+	end	
+
 	#Método que devuelve un string con todos los atributos
 	def to_s
 		"\nTesoros: "+ @treasures.to_s + "\nNiveles:" + @levels.to_s

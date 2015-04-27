@@ -31,6 +31,10 @@ class BadConsequence
 		@specificVisibleTreasures = sVisibleTreasures
 	end
 
+	def getLevels
+		@levels
+	end
+
 	#Metodo de clase utilizado como "constructor" al que pasamos como parametros el nombre, el número de niveles y el número de tesoros
 	#visibles e invisibles que quita
 	def BadConsequence.newLevelNumberOfTreasures(text, levels, nVisible, nHidden)
@@ -53,8 +57,8 @@ class BadConsequence
 	#ni perdida de tesoros
 	def isEmpty
 		empty = false
-		if(levels == 0 && nVisibleTreasures == 0 && nHiddenTreasures == 0 && death == false &&
-			specificVisibleTreasures.empty? == true && specificHiddenTreasures.empty? == true )
+		if(@levels == 0 && @nVisibleTreasures == 0 && @nHiddenTreasures == 0  &&
+			@specificVisibleTreasures.empty? == true && @specificHiddenTreasures.empty? == true )
 			empty = true
 		end
 
@@ -63,7 +67,7 @@ class BadConsequence
 
 	#Metodo que devuelve true cuando el mal rollo implica la muerte, y false en caso contrario
 	def kills
-		return death
+		return @death
 	end
 
 
@@ -75,8 +79,12 @@ class BadConsequence
 			if noencontrado
 				if treasure.getType == tipo
 					@specificVisibleTreasures.delete(tipo)
+					@nVisibleTreasures = @nVisibleTreasures - 1
 					noencontrado = false
 				end
+			end
+			if !noencontrado
+				break
 			end
 		end
 	end
@@ -89,67 +97,70 @@ class BadConsequence
 			if noencontrado
 				if treasure.getType == tipo
 					@specificHiddenTreasures.delete(tipo)
+				    @nHiddenTreasures = @nHiddenTreasures - 1
 					noencontrado = false
 				end
 			end
+			if !noencontrado
+				break
+			end
 		end
 	end
-	end
+	
 
 	def adjustToFitTreasureLists(v, h)
-		
-		nVisibleTreasures=0
-		nHiddenTreasures=0
-		if v.empty? && h.empty?
+		tVisible=Array.new
+		tHidden=Array.new
+		nvisible = @nVisibleTreasures
+		nhidden = @nHiddenTreasures
+		i=0
+		copiavisible = @specificVisibleTreasures
+		copiahidden = @specificHiddenTreasures
 
-			if @nVisibleTreasures>v.size
-				nVisibleTreasures=v.size			
-			end
-			if @nHiddenTreasures > h.size
-				nHiddenTreasures=h.size
-			end
-			bad=BadConsequence.newLevelNumberOfTreasures(@text,0,nVisibleTreasures,nHiddenTreasures)
+		if (@specificHiddenTreasures.empty? == true) && (@specificVisibleTreasures.empty? == true)
+		    if v.length < @nVisibleTreasures
+		        nvisible = v.length
+		    end
+		      
+		    if h.length < @nHiddenTreasures
+		        nhidden = h.length
+		    end
+		     
+		    nuevobc = BadConsequence.newLevelNumberOfTreasures(@text, 0, nvisible, nhidden)
 		else
-			specificVisibleTreasures=Array.new
-			specificHiddenTreasures=Array.new
-			for t in @specificVisibleTreasures
-				for treasure in v 
-					if t == treasure
-						presente== true
-						break
-					end 
-				end
-				if presente
-					specificHiddenTreasures<<t
-				end
-
-			end
-			for t in @specificHiddenTreasures
-				for treasure in v 
-					if t == treasure
-						presente== true
-						break
-					end 
-				end
-				if presente
-					specificHiddenTreasures<<t
-				end
-			end
-
-			bad=BadConsequence.newLevelSpecificTreasures(@text,0,specificVisibleTreasures,specificHiddenTreasures)
+		while i < v.length
+		  if copiavisible.include?(v[i].type)
+		    tVisible << v[i].type
+		    copiavisible.delete_at(copiavisible.index(v[i].type))
+		  end
+		  i=i+1
 		end
-		return bad
-	end
+
+		i=0
+		while i < h.length
+		  if copiahidden.include?(h[i].type)
+		    tHidden << h[i].type
+		    copiahidden.delete_at(copiahidden.index(h[i].type))
+		  end
+		  i=i+1
+		end
+		  nuevobc = BadConsequence.newLevelSpecificTreasures(@text,0,tVisible,tHidden)
+		end
+
+
+		return nuevobc
+
+	end	
 
 	#Metodo to_s devuelve un string con todos los atributos del mal rollo 
 	def to_s
-		if(levels == 0)
+		if(@levels == 0)
 			nivel = "No quita niveles"
 		else
 			nivel = levels.to_s
 		end
 
-		if(death)
+		if(@death)
 			muerto = "true";
 		else
 			muerto = "false";
@@ -171,7 +182,7 @@ class BadConsequence
 			nVisible_string = @nVisibleTreasures.to_s
 		end
 
-		if(@nHiddenTreasures == 0s)
+		if(@nHiddenTreasures == 0)
 			nHidden_string = "No utiliza número tesoros visibles"
 		else
 			nHidden_string = @nHiddenTreasures.to_s
@@ -184,36 +195,5 @@ class BadConsequence
 	private_class_method :new
 
 end
-
-#Pruebas
-#malRollito = BadConsequence.newLevelNumberOfTreasures("",-1,-1,-1)
-#malRollito1 = BadConsequence.newDeath("")
-#if malRollito.isEmpty
-#	puts "El mal rollito esta vacio"
-#end
-
-#if malRollito1.kills
-#	puts "El mal rollito 1 te mata"
-#end
-
-#Pruebas
-	
-
-#bc = BadConsequence.newDeath('a')
-#bc1 = BadConsequence.newLevelNumberOfTreasures('ey', -1, -1, -1)
-#bc2 = BadConsequence.newLevelSpecificTreasures('e', -1, Array.new, Array.new)
-
-#@malRollitos = Array.new
-#malRollitos = [malRollito, bc, bc1, bc2]
-
-#for badconsequence in malRollitos
-	#if badconsequence.isEmpty
-		#puts "Toy vacio" + badconsequence.to_s + "\n"
-#end
-
-	#if badconsequence.kills
-		#puts "Hay muerte" +badconsequence.to_s + "\n"
-	#end
-#end
-
 end 
+

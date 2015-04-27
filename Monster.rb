@@ -21,6 +21,18 @@ class Monster
 	attr_reader :prize
 	#Mal rollo que se nos aplica si perdemos el combate
 	attr_reader :badConsequence
+
+	def getLevel
+		@combatLevel
+	end
+
+	def getBadConsequence
+		@badConsequence
+	end
+
+	def getPrize
+		@prize
+	end
 	
 	#Metodo que devuelve un string con todos los atributos de la clase Monster
 	def to_s
@@ -28,5 +40,4 @@ class Monster
 	end
 
 end
-
 end
