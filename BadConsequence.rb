@@ -72,14 +72,12 @@ class BadConsequence
 
 
 	def substractVisibleTreasure(t)
-		#Si no esta el tesoro t que hacemos?
 		tipo = t.getType
 		noencontrado = true
 		for treasure in @specificVisibleTreasures
 			if noencontrado
 				if treasure.getType == tipo
 					@specificVisibleTreasures.delete(tipo)
-					#@nVisibleTreasures = @nVisibleTreasures - 1 En vez de poner esto aquí, lo pongo abajo, y restariamos solo en caso de no encontrarlo ya que eso querria decir que hemos quitado un tesoro por quitar uno, no porque tuvieramos que quitarnos ese en particular
 					noencontrado = false
 				end
 			end
@@ -87,20 +85,20 @@ class BadConsequence
 				break
 			end
 		end
-		if noencontrado
+
+		#Asi nos ahorramos el caso de que se quiten mas de la cuenta y sea negativo 
+		if noencontrado && @nVisibleTreasures != 0
 			@nVisibleTreasures = @nVisibleTreasures - 1
 		end
 	end
 
 	def substractHiddenTreasure(t)
-		#Si no esta el tesoro t que hacemos?
 		tipo = t.getType
 		noencontrado = true
 		for treasure in @specificHiddenTreasures
 			if noencontrado
 				if treasure.getType == tipo
 					@specificHiddenTreasures.delete(tipo)
-				    #@nHiddenTreasures = @nHiddenTreasures - 1 En vez de poner esto aquí, lo pongo abajo, y restariamos solo en caso de no encontrarlo ya que eso querria decir que hemos quitado un tesoro por quitar uno, no porque tuvieramos que quitarnos ese en particular
 					noencontrado = false
 				end
 			end
@@ -108,7 +106,7 @@ class BadConsequence
 				break
 			end
 		end
-		if noencontrado
+		if noencontrado && @nHiddenTreasures != 0
 			@nHiddenTreasures = @nHiddenTreasures - 1
 		end
 	end
@@ -153,7 +151,6 @@ class BadConsequence
 		  nuevobc = BadConsequence.newLevelSpecificTreasures(@text,0,tVisible,tHidden)
 		end
 
-
 		return nuevobc
 
 	end	
@@ -194,7 +191,7 @@ class BadConsequence
 			nHidden_string = @nHiddenTreasures.to_s
 		end
 
-		"\nTexto: " + @text + "\n\tNiveles: " + nivel + "\n\tNumero tesoros visibles: " + nVisible_string + "\n\tNumero tesoros ocultos: " + nHidden_string +
+		"\n\tTexto: " + @text + "\n\tNiveles: " + nivel + "\n\tNumero tesoros visibles: " + nVisible_string + "\n\tNumero tesoros ocultos: " + nHidden_string +
 		"\n\tMuerte: " + muerto + "\n\tTesoros visibles especificos: " + tesorosVisibles + "\n\tTesoros ocultos especificos: " + tesorosOcultos
 	end
 

@@ -36,7 +36,7 @@ class Monster
 	
 	#Metodo que devuelve un string con todos los atributos de la clase Monster
 	def to_s
-		"\nName:" +  @name + "\n\tNivel de combate: "+ @combatLevel.to_s + "\n\tMal Rollo:" + @badConsequence.to_s + "\n\tBuen Rollo" + @prize.to_s
+		"\nNombre:" +  @name + "\nNivel de combate: "+ @combatLevel.to_s + "\nMal Rollo: " + @badConsequence.to_s + "\nBuen Rollo" + @prize.to_s
 	end
 
 end

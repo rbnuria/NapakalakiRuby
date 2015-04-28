@@ -80,7 +80,7 @@ class Player
 
 	def discardNecklaceIfVisible
 		for treasure in @visibleTreasures
-			if treasure.getType == TreasureKind::NECKLACE
+			if treasure.getType == [TreasureKind::NECKLACE]
 				cardealer = CardDealer.instance
 				cardealer.giveTreasureBack(treasure)
 				@visibleTreasures.delete(treasure)
@@ -136,7 +136,7 @@ class Player
 			prize=m.getPrize
 			applyPrize(prize)
 			if getLevel<10
-				combatResult=CombatResult::WIN
+				combatResult= CombatResult::WIN
 			else
 				combatResult=CombatResult::WINANDWINGAME
 				
@@ -210,7 +210,11 @@ class Player
 					if numOneHand==2
 						valido=false					
 					else
-						numOneHand=numOneHand+1				
+						numOneHand=numOneHand+1
+						if(numOneHand==2)
+							valido = false
+						end
+										
 					end
 				else
 					valido=false		
@@ -228,39 +232,10 @@ class Player
 		valido
 
 	end
-=begin
-	public boolean canMakeTreasureVisible(Treasure t){
-        boolean valido=true;
-        int nOneHand=0;
-        for(int i=0;i<visibleTreasures.size() && valido;++i){
-            if((visibleTreasures.get(i).getType()==t.getType())) { 
-                if(visibleTreasures.get(i).getType()==TreasureKind.ONEHAND){
-                   if(nOneHand==2)
-                        valido=false;
-                   else{
-                        nOneHand++;
-                        if(nOneHand==2)
-                            valido=false;
-                    }
-                }else
-                    valido=false;
-            }else{
-                if((t.getType()==TreasureKind.ONEHAND && visibleTreasures.get(i).getType()==TreasureKind.BOTHHANDS)||(t.getType()==TreasureKind.BOTHHANDS && visibleTreasures.get(i).getType()==TreasureKind.ONEHAND))
-                    valido=false;
-                }
-        } 
-        return valido;
-    }
-=end		
-	
+
 
 	def discardVisibleTreasure(t)
 		@visibleTreasures.delete(t)
-=begin	Esto no hace falta controlarlo aquí creo, porque o se habrá ajustado ya la badConsequence para que se pueda cumplir, o llamaremos a dieIfnotreasures y moriremos
-	if @visibleTreasures.empty?
-			pendingBadConsequence = nil
-		end
-=end
 		if (@pendingBadConsequence != nil) and (@pendingBadConsequence.isEmpty == false)
 			@pendingBadConsequence.substractVisibleTreasure(t)
 		end
@@ -273,17 +248,11 @@ class Player
 
 	def discardHiddenTreasure(t)
 		@hiddenTreasures.delete(t)
-=begin	Esto puede provocar trampas	
-		if @hiddenTreasures.empty?
-			pendingBadConsequence = nil
-		end
-=end
 		if (@pendingBadConsequence != nil) and (@pendingBadConsequence.isEmpty == false)
 			@pendingBadConsequence.substractHiddenTreasure(t)
 		end
 
 		CardDealer.instance.giveTreasureBack(t)
-		#¿esto es necesario?
 		dieIfNoTreasures
 	end
 
@@ -378,19 +347,9 @@ class Player
 	end
 
 	def to_s
-		tesorosVisibles = ""
-		for treasure in @visibleTreasures
-			tesorosVisibles += treasure.to_s + "\n"
-		end
-
-		tesorosHidden = ""
-		for treasure in @hiddenTreasures
-			tesorosHidden += treasure.to_s + "\n"
-		end
-
 		combatl = getCombatLevel.to_s
 
-		"Nombre:"+ @name+"\n\tNivel: "+@level.to_s+"\n\tNivel de combate: "+combatl+ "\n\tTesoros visibles: "+tesorosVisibles+"\n\tTesoros invisibles: "+tesorosHidden+"\n"
+		@name+"\n\tNivel: "+@level.to_s+"\n\tNivel de combate: "+combatl+"\n"
 	end
 
 	

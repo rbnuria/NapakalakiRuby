@@ -23,7 +23,7 @@ class Prize
 
 	#Método que devuelve un string con todos los atributos
 	def to_s
-		"\nTesoros: "+ @treasures.to_s + "\nNiveles:" + @levels.to_s
+		"\n\tTesoros: "+ @treasures.to_s + "\n\tNiveles:" + @levels.to_s
 	end
 end	
 end
