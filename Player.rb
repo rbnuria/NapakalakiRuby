@@ -181,7 +181,7 @@ class Player
 		puntuacionMin=@level
 		encontrado=false
 		for tesoro in @visibleTreasures
-			if tesoro.getType==TreasureKind::NECKLACE
+			if tesoro.getType==[TreasureKind::NECKLACE]
 				encontrado=true				
 			end
 			puntuacionMin=puntuacionMin+tesoro.getMinBonus
@@ -190,7 +190,7 @@ class Player
 		if encontrado==true
 			return puntuacionMax
 		else
-			puntuacionMin
+			return puntuacionMin
 		end
 	end
 
@@ -256,12 +256,13 @@ class Player
 
 	def discardVisibleTreasure(t)
 		@visibleTreasures.delete(t)
-		if @visibleTreasures.empty?
+=begin	Esto no hace falta controlarlo aquí creo, porque o se habrá ajustado ya la badConsequence para que se pueda cumplir, o llamaremos a dieIfnotreasures y moriremos
+	if @visibleTreasures.empty?
 			pendingBadConsequence = nil
 		end
-
-		if (pendingBadConsequence != nil) and (pendingBadConsequence.empty? == false)
-			pendingBadConsequence.substractVisibleTreasure(t)
+=end
+		if (@pendingBadConsequence != nil) and (@pendingBadConsequence.isEmpty == false)
+			@pendingBadConsequence.substractVisibleTreasure(t)
 		end
 
 		CardDealer.instance.giveTreasureBack(t)
@@ -272,15 +273,17 @@ class Player
 
 	def discardHiddenTreasure(t)
 		@hiddenTreasures.delete(t)
+=begin	Esto puede provocar trampas	
 		if @hiddenTreasures.empty?
 			pendingBadConsequence = nil
 		end
-
-		if (pendingBadConsequence != nil) and (pendingBadConsequence.empty? == false)
-			pendingBadConsequence.substractHiddenTreasure(t)
+=end
+		if (@pendingBadConsequence != nil) and (@pendingBadConsequence.isEmpty == false)
+			@pendingBadConsequence.substractHiddenTreasure(t)
 		end
 
 		CardDealer.instance.giveTreasureBack(t)
+		#¿esto es necesario?
 		dieIfNoTreasures
 	end
 
@@ -310,7 +313,9 @@ class Player
 	attr_reader :hiddenTreasures
 	#Nombre del jugador
 	attr_reader :name
-
+	def getName
+		@name
+	end
 	def getHiddenTreasures
 		@hiddenTreasures
 	end

@@ -57,7 +57,7 @@ class BadConsequence
 	#ni perdida de tesoros
 	def isEmpty
 		empty = false
-		if(@levels == 0 && @nVisibleTreasures == 0 && @nHiddenTreasures == 0  &&
+		if(@levels == 0 && @nVisibleTreasures <1 && @nHiddenTreasures < 1  &&
 			@specificVisibleTreasures.empty? == true && @specificHiddenTreasures.empty? == true )
 			empty = true
 		end
@@ -79,13 +79,16 @@ class BadConsequence
 			if noencontrado
 				if treasure.getType == tipo
 					@specificVisibleTreasures.delete(tipo)
-					@nVisibleTreasures = @nVisibleTreasures - 1
+					#@nVisibleTreasures = @nVisibleTreasures - 1 En vez de poner esto aquí, lo pongo abajo, y restariamos solo en caso de no encontrarlo ya que eso querria decir que hemos quitado un tesoro por quitar uno, no porque tuvieramos que quitarnos ese en particular
 					noencontrado = false
 				end
 			end
 			if !noencontrado
 				break
 			end
+		end
+		if noencontrado
+			@nVisibleTreasures = @nVisibleTreasures - 1
 		end
 	end
 
@@ -97,13 +100,16 @@ class BadConsequence
 			if noencontrado
 				if treasure.getType == tipo
 					@specificHiddenTreasures.delete(tipo)
-				    @nHiddenTreasures = @nHiddenTreasures - 1
+				    #@nHiddenTreasures = @nHiddenTreasures - 1 En vez de poner esto aquí, lo pongo abajo, y restariamos solo en caso de no encontrarlo ya que eso querria decir que hemos quitado un tesoro por quitar uno, no porque tuvieramos que quitarnos ese en particular
 					noencontrado = false
 				end
 			end
 			if !noencontrado
 				break
 			end
+		end
+		if noencontrado
+			@nHiddenTreasures = @nHiddenTreasures - 1
 		end
 	end
 	
