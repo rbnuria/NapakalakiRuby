@@ -80,7 +80,7 @@ class Player
 
 	def discardNecklaceIfVisible
 		for treasure in @visibleTreasures
-			if treasure.getType == [TreasureKind::NECKLACE]
+			if treasure.getType == TreasureKind::NECKLACE
 				cardealer = CardDealer.instance
 				cardealer.giveTreasureBack(treasure)
 				@visibleTreasures.delete(treasure)
@@ -181,7 +181,7 @@ class Player
 		puntuacionMin=@level
 		encontrado=false
 		for tesoro in @visibleTreasures
-			if tesoro.getType==[TreasureKind::NECKLACE]
+			if tesoro.getType==TreasureKind::NECKLACE
 				encontrado=true				
 			end
 			puntuacionMin=puntuacionMin+tesoro.getMinBonus
@@ -206,7 +206,7 @@ class Player
 		valido=true
 		for t in @visibleTreasures
 			if t.getType == treasure.getType
-				if t.getType==[TreasureKind::ONEHAND]
+				if t.getType==TreasureKind::ONEHAND
 					if numOneHand==2
 						valido=false					
 					else
@@ -220,7 +220,7 @@ class Player
 					valido=false		
 				end
 			else
-				if (treasure.getType == [TreasureKind::ONEHAND] && t.getType == [TreasureKind::BOTHHANDS])|| (treasure.getType == [TreasureKind::BOTHHANDS] && t.getType == [TreasureKind::ONEHAND])
+				if (treasure.getType == TreasureKind::ONEHAND && t.getType == TreasureKind::BOTHHANDS)|| (treasure.getType == TreasureKind::BOTHHANDS && t.getType == TreasureKind::ONEHAND)
 					valido=false		
 				end
 			end

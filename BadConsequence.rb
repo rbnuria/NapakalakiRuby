@@ -71,45 +71,27 @@ class BadConsequence
 	end
 
 
-	def substractVisibleTreasure(t)
-		tipo = t.getType
-		noencontrado = true
-		for treasure in @specificVisibleTreasures
-			if noencontrado
-				if treasure.getType == tipo
-					@specificVisibleTreasures.delete(tipo)
-					noencontrado = false
-				end
-			end
-			if !noencontrado
-				break
-			end
-		end
+    def substractVisibleTreasure(t)
+      if @nVisibleTreasures > 0
+        @nVisibleTreasures = @nVisibleTreasures - 1
+      else
+        tipo = @specificVisibleTreasures.find_index(t.type)
+        if tipo != nil
+          @specificVisibleTreasures.delete_at(tipo)
+        end
+      end
+    end
 
-		#Asi nos ahorramos el caso de que se quiten mas de la cuenta y sea negativo 
-		if noencontrado && @nVisibleTreasures != 0
-			@nVisibleTreasures = @nVisibleTreasures - 1
-		end
-	end
-
-	def substractHiddenTreasure(t)
-		tipo = t.getType
-		noencontrado = true
-		for treasure in @specificHiddenTreasures
-			if noencontrado
-				if treasure.getType == tipo
-					@specificHiddenTreasures.delete(tipo)
-					noencontrado = false
-				end
-			end
-			if !noencontrado
-				break
-			end
-		end
-		if noencontrado && @nHiddenTreasures != 0
-			@nHiddenTreasures = @nHiddenTreasures - 1
-		end
-	end
+    def substractHiddenTreasure(t)
+      if @nHiddenTreasures > 0
+        @nHiddenTreasures = @nHiddenTreasures - 1
+      else
+        tipo = @specificHiddenTreasures.find_index(t.type)
+        if tipo != nil
+          @specificHiddenTreasures.delete_at(tipo)
+        end
+      end
+    end
 	
 
 	def adjustToFitTreasureLists(v, h)
