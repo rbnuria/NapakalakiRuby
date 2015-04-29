@@ -51,7 +51,6 @@ include Singleton
       @unusedTreasures << Treasure.new("Zapato deja-amigos", 500, 0, 1, TreasureKind::SHOE)
       @unusedTreasures << Treasure.new("Shogulador", 600, 1, 1, TreasureKind::BOTHHANDS)
       @unusedTreasures << Treasure.new("Varita de atizamiento", 400, 3, 4, TreasureKind::ONEHAND)
-
 	end
 
 	#Metodo que inicializa el taco de cartas con todos los monstruos que intervendrán en el juego
