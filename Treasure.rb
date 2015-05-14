@@ -33,6 +33,14 @@ class Treasure
 	def getType
 		@type
 	end
+
+	def getBasicValue
+		@minBonus
+	end
+
+	def getSpecialValue
+		@maxBonus
+	end
 	
 	def to_s
 		"Nombre: " + @name.to_s + "\n\tNúmero de monedas de oro: " + @goldCoins.to_s + "\n\tNiveles que suma sin collar: " + @minBonus.to_s + "\n\tNiveles que suma con collar: " + @maxBonus.to_s +

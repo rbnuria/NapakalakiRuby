@@ -24,6 +24,19 @@ class Player
 		@pendingBadConsequence = nil
 	end
 
+	private
+	def newCopia(player)
+
+        @dead = otro.isDead
+        @name = otro.getName
+        @level = otro.getLevel
+        @hiddenTreasures = otro.getHiddenTreasures
+        @visibleTreasures = otro.getVisibleTreasures
+        @pendingBadConsequence = otro.getPendingBadConsequence
+        
+	end
+
+	public
 	def getLevel
 		@level
 	end
@@ -131,7 +144,7 @@ class Player
 
 	def combat(m)
 		myLevel=getCombatLevel
-		levelMonster=m.getLevel
+		levelMonster=getOponentLevel(m)
 		if myLevel>levelMonster
 			prize=m.getPrize
 			applyPrize(prize)
@@ -154,7 +167,11 @@ class Player
 					combatResult= CombatResult::LOSEANDDIE
 				else
 					applyBadConsequence(bad)
-					combatResult= CombatResult::LOSE
+					if shouldConvert
+						combatResult = CombatResult::LOSEANDCONVERT
+					else
+						combatResult= CombatResult::LOSE
+					end
 				end
 			else
 				combatResult= CombatResult::LOSEANDESCAPE
@@ -350,6 +367,20 @@ class Player
 		combatl = getCombatLevel.to_s
 
 		@name+"\n\tNivel: "+@level.to_s+"\n\tNivel de combate: "+combatl+"\n"
+	end
+
+	protected
+	def getOponentLevel(monster)
+		monster.getBasicValue
+	end
+
+	def shouldConvert
+		dado = Dice.instance.nextNumber
+
+		if dado == 6
+			return true
+		else
+			return false
 	end
 
 	

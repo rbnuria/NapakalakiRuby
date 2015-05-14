@@ -114,23 +114,23 @@ class BadConsequence
 		     
 		    nuevobc = BadConsequence.newLevelNumberOfTreasures(@text, 0, nvisible, nhidden)
 		else
-		while i < v.length
-		  if copiavisible.include?(v[i].type)
-		    tVisible << v[i].type
-		    copiavisible.delete_at(copiavisible.index(v[i].type))
-		  end
-		  i=i+1
-		end
+			while i < v.length
+			  if copiavisible.include?(v[i].type)
+			    tVisible << v[i].type
+			    copiavisible.delete_at(copiavisible.index(v[i].type))
+			  end
+			  i=i+1
+			end
 
-		i=0
-		while i < h.length
-		  if copiahidden.include?(h[i].type)
-		    tHidden << h[i].type
-		    copiahidden.delete_at(copiahidden.index(h[i].type))
-		  end
-		  i=i+1
-		end
-		  nuevobc = BadConsequence.newLevelSpecificTreasures(@text,0,tVisible,tHidden)
+			i=0
+			while i < h.length
+			  if copiahidden.include?(h[i].type)
+			    tHidden << h[i].type
+			    copiahidden.delete_at(copiahidden.index(h[i].type))
+			  end
+			  i=i+1
+			end
+			  nuevobc = BadConsequence.newLevelSpecificTreasures(@text,0,tVisible,tHidden)
 		end
 
 		return nuevobc

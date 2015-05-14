@@ -13,6 +13,7 @@ include Singleton
 		@usedMonsters = Array.new
 		@usedTreasures = Array.new
 		@unusedTreasures = Array.new
+		@unusedCultist = Array.new
 
 	end
 
@@ -211,7 +212,31 @@ include Singleton
 		shuffleMonsters
 		initTreasureCardDeck
 		shuffleTreasures
+		initCultistCardDeck
+		shuffleCultists
 	end
+
+	def nextCultist
+		cultist = @unusedCultist.get(0)
+		unusedCultist.delete_at(0)
+		return cultist
+	end
+
+	private
+	def shuffleCultists
+		@unusedCultist.shuffle!
+	end
+
+	def initCultistCardDeck
+	    @unusedCultist << Cultist.new("Sectario", 1)
+        @unusedCultist << Cultist.new("Sectario", 2)
+        @unusedCultist << Cultist.new("Sectario", 1)
+        @unusedCultist << Cultist.new("Sectario", 2)
+        @unusedCultist << Cultist.new("Sectario", 1)
+        @unusedCultist << Cultist.new("Sectario", 1)
+	end
+
+
 end
 end
 

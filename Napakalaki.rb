@@ -39,6 +39,12 @@ include Singleton
 		combatResult=@currentPlayer.combat(@currentMonster)
 		dealer=CardDealer.instance
 		dealer.giveMonsterBack(@currentMonster)
+		if combatResult ==  CombatResult::LOSEANDCONVERT
+			c = CardDealer.instance.nextCultist
+			cultist = CultistPlayer.new(@currentPlayer,c)
+			@players.at(@currentPlayersIndex)=cultist
+			@currentPlayer = cultist
+		end
 		combatResult
 	end
 

@@ -11,6 +11,8 @@ module Model
 		LOSEANDESCAPE=:LOSEANDESCAPE
 		#El jugador pierde el combate y muere
 		LOSEANDDIE=:LOSEANDDIE
+
+		LOSEANDCONVERT=:LOSEANDCONVERT
 	end
 
 end

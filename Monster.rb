@@ -5,12 +5,12 @@ require_relative 'Prize.rb'
 module Model
 class Monster
 	#Metodo initialize de la clase Monster
-	def initialize(name,level,prize,bc)
+	def initialize(name,level,prize,bc,lc)
 		@name=name
 		@combatLevel=level
 		@prize=prize
 		@badConsequence=bc
-
+		@levelChangeAgainstCultistPlayer=lc
 	end
 
 	#Nombre del monstruo
@@ -38,6 +38,18 @@ class Monster
 	def to_s
 		"\nNombre:" +  @name + "\nNivel de combate: "+ @combatLevel.to_s + "\nMal Rollo: " + @badConsequence.to_s + "\nBuen Rollo" + @prize.to_s
 	end
+
+	def getBasicValue
+		return @level
+	end
+
+	def getSpecialValue
+		return (@level + @levelChangeAgainstCultistPlayer)
+	end
+
+
+
+
 
 end
 end
