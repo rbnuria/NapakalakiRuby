@@ -8,12 +8,9 @@ require_relative 'Treasure.rb'
 require_relative 'BadConsequence.rb'
 module Model
 class Prueba
-	#Creacion de un jugador sectario
-	player = Player.new("Nuria")
-	cultist = Cultist.new("Sectario",1)
-	cultistplayer = CultistPlayer.new(player,cultist)
+	##################################### CREACION OBJETOS ###########################################
 
-	#Creacion tesoro
+	#TESOROS
 	tesoroHelmet = Treasure.new("Capucha de Cthulhu", 500, 3, 5, TreasureKind::HELMET)
 	tesoro2hands = Treasure.new("Capucha de Cthulhu", 500, 3, 5, TreasureKind::BOTHHANDS)
 	tesoro1hand = Treasure.new("Capucha de Cthulhu", 500, 3, 5, TreasureKind::ONEHAND)
@@ -25,70 +22,92 @@ class Prueba
 	tesoros << tesoroHelmet
 	tesoros << tesoroHelmet
 
-	#Creacion badConsequence
-	bc1 = BadConsequenceDeath.new('bc muerte')
-	bc2 = BadConsequenceNumbers.new('bc numbers', 1,2,3)
-	bc3 = BadConsequenceSpecific.new('bc lists',0,[TreasureKind::ONEHAND,TreasureKind::HELMET], [])
+	#MALOS ROLLOS
+	bcdeath = BadConsequenceDeath.new('bc muerte')
+	bcnumber = BadConsequenceNumbers.new('bc numbers', 1,2,3)
+	bclist = BadConsequenceSpecific.new('bc lists',0,[TreasureKind::ONEHAND,TreasureKind::ONEHAND,TreasureKind::HELMET], [TreasureKind::ONEHAND, TreasureKind::ARMOR])
 
 	#Creacion prize
 	prize = Prize.new(1,1)
 	#Creacion monstruo
-	monster = Monster.new('Nombre monstruo', 4, prize, bc2, 3)
+	monster = Monster.new('Nombre monstruo', 4, prize, bcnumber, 3)
+
+	#Creacion de un jugador sectario
+	player = Player.new("Nuria")
+	cultist = Cultist.new("Sectario",1)
+	cultistplayer = CultistPlayer.new(player,cultist)
 	
-	#SON PROTEGIDOS
-	puts cultistplayer.computeGoldCoinsValue(tesoros)
-	puts player.computeGoldCoinsValue(tesoros)
+	##################################### METODOS ###########################################
+	#BAD CONSEQUENCE
+	bclist.substractVisibleTreasure(tesoroShoe)
+	bclist.substractHiddenTreasure(tesoro1hand);
+        
+    bcnumber.substractVisibleTreasure(tesoroShoe);
+    bcnumber.substractHiddenTreasure(tesoro1hand);
 
-	puts cultistplayer.shouldConvert
-	puts player.shouldConvert
 
-	puts player.getCombatLevel
-	puts cultistplayer.getCombatLevel
+    v = Array.new
+    v << tesoro1hand
+    v << tesoro1hand
+    v << tesoro1hand
+    v << tesoro1hand
+    v << tesoro1hand
+    v << tesoro2hands
+    v << tesoroNecklace
 
-	puts player.getOponentLevel(monster)
-	puts cultistplayer.getOponentLevel(monster)
+    h = Array.new
+    h << tesoro1hand
+    h << tesoroHelmet
+    h << tesoroArmor
 
-	cultist.getSpecialValue
-	
-	#Pruebas del adust to fit
-	tesorosvisibles = Array.new
-	tesorosvisibles << tesoro1hand
-	tesorosvisibles << tesoro2hands
-	puts "\nTesoros visible del jugador\n"
-	for t in tesorosvisibles
-		puts t.to_s
+    puts bclist.to_s
+   	puts bcnumber.to_s
+
+    adjust = bclist.adjustToFitTreasureLists(v,h)
+    adjust1 = bcnumber.adjustToFitTreasureLists(v,h)
+
+    bc_empty_n = BadConsequenceNumbers.new('Vacio numeros',0,0,0)
+    bc_empty_l = BadConsequenceSpecific.new('Vacio listas', 0, [],[])
+
+    adjust2 = bc_empty_n.adjustToFitTreasureLists(v,h)
+    adjust3 = bc_empty_l.adjustToFitTreasureLists(v,h)
+
+    puts adjust.to_s
+    puts adjust1.to_s
+    puts adjust2.to_s
+    puts adjust3.to_s
+
+    # PLAYEEEEEERRRR
+    player.addSpecificVisibleTreasures(v)
+	player.addSpecificHiddenTreasures(h)
+
+	level1 = player.getCombatLevel
+	level2 = cultistplayer.getCombatLevel
+
+	for i in 0 .. 10
+		#puts player.shouldConvert Es protegido
 	end
 
-	tesoroshidden = Array.new
-	tesoroshidden << tesoro1hand
-	tesoroshidden << tesoro2hands
-	puts "\nTesoro hidden del jugador\n"
-	for t in tesoroshidden
-		puts t.to_s
+	for i in 0 .. 10
+		#puts cultistplayer.shouldConvert Es protegido
 	end
 
-	player.addSpecificVisibleTreasures(tesorosvisibles)
-	player.addSpecificHiddenTreasures(tesoroshidden)
+	#player.computeGoldCoinsValue
+	#cultist.computeGoldCoinsValue
 
-	playervisible = Array.new
-	playerhidden = Array.new
-	playervisible = player.getVisibleTreasures
-	puts "\nTesoros visibles del jugador despues de meterlos\n"
-	for t in playervisible
-		puts t.to_s
-	end
-	
-	playerhidden = player.getHiddenTreasures
-	puts "\nTesoros hidden del jugador despues de meterlos\n"
-	for t in playerhidden
-		puts t.to_s
-	end
+	#Se ajusta y despues se aplica
+	player.applyBadConsequence(bcnumber)
+	#player.setPendingBadConsequence(bcnumber)
 
-	bcadjust = BadConsequenceSpecific.new('Prueba',0,[TreasureKind::ONEHAND,TreasureKind::ONEHAND],[TreasureKind::BOTHHANDS, TreasureKind::BOTHHANDS])
-	
-	bcresultado = player.applyBadConsequence(bcadjust)
+	player.makeTreasureVisible(tesoroHelmet)
+	player.validState
 
-	puts bcresultado.to_s
+	player.discardVisibleTreasure(tesoro1hand)
+	player.discardVisibleTreasure(tesoroHelmet)
+
+
+
+
 
 
 

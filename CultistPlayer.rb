@@ -16,8 +16,7 @@ class CultistPlayer < Player
 	end
 
 	protected
-	public
-	#VOLVER A HACER ROTECTEDD!!!!!
+
 	def getOponentLevel(monster)
 		monster.getSpecialValue
 	end

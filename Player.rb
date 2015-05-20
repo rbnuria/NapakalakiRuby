@@ -124,8 +124,7 @@ class Player
 		end
 	end
 
-	public
-	#VOLVER A HACERLO PROTECTED
+	protected
 	def computeGoldCoinsValue(t)
 		value = 0
 		for treasure in t
@@ -389,8 +388,7 @@ class Player
 		monster.getBasicValue
 	end
 
-	public
-	#Volver a hacer protected
+	protected
 	def shouldConvert
 		dado = Dice.instance.nextNumber
 
@@ -400,6 +398,8 @@ class Player
 			return false
 		end
 	end
+
+	public
 
 	#Metodos para las pruebas
 	def addSpecificVisibleTreasures(t)

@@ -169,31 +169,44 @@ class BadConsequenceSpecific < BadConsequence
 	end
 
 	def adjustToFitTreasureLists(v, h)
-		i=0
-		copiavisible = @specificVisibleTreasures
-		copiahidden = @specificHiddenTreasures
+		
+      nuevoBc = BadConsequenceSpecific.new(@text, @level, @specificVisibleTreasures, @specificHiddenTreasures)
+      
+      copiaVisible = v.dup
+      for t in nuevoBc.specificVisibleTreasures
+        encontrado = false
+        for treasure in copiaVisible
+          if treasure.type == t and not encontrado
+           encontrado = true
+           indicetesoro = copiaVisible.find_index(treasure)
+          end
+        end
+        if not encontrado
+          indice = nuevoBc.specificVisibleTreasures.find_index(t)
+          nuevoBc.specificVisibleTreasures.delete_at(indice)
+        else
+          copiaVisible.delete_at(indicetesoro)
+        end
+      end
 
-		tVisible=Array.new
-		tHidden=Array.new
-
-		while i < v.length
-		  if copiavisible.include?(v[i].type)
-		    tVisible << v[i].type
-		  end
-		  i=i+1
-		end
-
-		i=0
-		while i < h.length
-		  if copiahidden.include?(h[i].type)
-		    tHidden << h[i].type
-		  end
-		  i=i+1
-		end
-		  
-		nuevobc = BadConsequenceSpecific.new(@text,0,tVisible,tHidden)
-
-		return nuevobc
+      copiaHidden = h.dup
+      for t in nuevoBc.specificHiddenTreasures
+        encontrado = false
+        for treasure in copiaHidden
+          if treasure.type == t
+            encontrado = true
+            indicetesoro = copiaHidden.find_index(treasure)
+          end
+        end
+        if not encontrado
+          indice = nuevoBc.specificHiddenTreasures.find_index(t)
+          nuevoBc.specificHiddenTreasures.delete_at(indice)
+        else
+          copiaHidden.delete_at(indicetesoro)
+        end
+      end
+      
+      return nuevoBc
 	end
 
 
