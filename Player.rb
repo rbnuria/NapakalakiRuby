@@ -124,7 +124,8 @@ class Player
 		end
 	end
 
-	protected
+	public
+	#VOLVER A HACERLO PROTECTED
 	def computeGoldCoinsValue(t)
 		value = 0
 		for treasure in t
@@ -381,11 +382,15 @@ class Player
 		@name+"\n\tNivel: "+@level.to_s+"\n\tNivel de combate: "+combatl+ "\n\tEstado" +estado+" \n"
 	end
 
-	protected
+	public
+	#VOLVER A HACER PROTECTEEED!!!!
+
 	def getOponentLevel(monster)
 		monster.getBasicValue
 	end
 
+	public
+	#Volver a hacer protected
 	def shouldConvert
 		dado = Dice.instance.nextNumber
 
@@ -395,6 +400,22 @@ class Player
 			return false
 		end
 	end
+
+	#Metodos para las pruebas
+	def addSpecificVisibleTreasures(t)
+		for  tesoro in t
+			@visibleTreasures << tesoro
+		end
+	end
+
+
+	def addSpecificHiddenTreasures(t)
+		for  tesoro in t
+			@hiddenTreasures << tesoro
+		end
+	end
+
+
 
 	
 	

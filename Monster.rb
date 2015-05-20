@@ -36,7 +36,10 @@ class Monster
 	
 	#Metodo que devuelve un string con todos los atributos de la clase Monster
 	def to_s
-		"\nNombre:" +  @name + "\nNivel de combate: "+ @combatLevel.to_s + "\nMal Rollo: " + @badConsequence.to_s + "\nBuen Rollo" + @prize.to_s
+		combatlevelplus = getSpecialValue
+		"\nNombre:" +  @name + "\nNivel de combate sin sectario: "+ @combatLevel.to_s + "\nNivel de combate con sectario: " + combatlevelplus.to_s + 
+		"\nMal Rollo: " + @badConsequence.to_s + "\nBuen Rollo" + @prize.to_s +
+		"\nNiveles diferentes contra sectarios: " + @levelChangeAgainstCultistPlayer.to_s
 	end
 
 	def getBasicValue
@@ -44,7 +47,7 @@ class Monster
 	end
 
 	def getSpecialValue
-		return (@level + @levelChangeAgainstCultistPlayer)
+		return (@combatLevel + @levelChangeAgainstCultistPlayer)
 	end
 
 

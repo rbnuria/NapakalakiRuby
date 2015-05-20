@@ -16,13 +16,20 @@ class CultistPlayer < Player
 	end
 
 	protected
+	public
+	#VOLVER A HACER ROTECTEDD!!!!!
 	def getOponentLevel(monster)
 		monster.getSpecialValue
 	end
 
+	public
+	#Volver a hacer PROTECTEEEED
 	def shouldConvert()
 		false
 	end
+
+	public
+	#VOLVER A HACERLO PROTECTEEED!!!!!
 
 	def computeGoldCoinsValue(t)
 		value = 0
@@ -34,13 +41,14 @@ class CultistPlayer < Player
 
 	public 
 	def getCombatLevel
-		level = super + @myCultistCard.getSpecialValue
+		level = super 
+		level = level + @myCultistCard.getSpecialValue
 		return level
 	end
 
 	def to_s
 		salida = super
-		salida += "\nJugador sectario"
+		salida += "\n\tJugador sectario"
 	end
 
 

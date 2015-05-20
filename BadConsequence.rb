@@ -59,7 +59,7 @@ class BadConsequence
 
 	#Metodo to_s devuelve un string con todos los atributos del mal rollo 
 	def to_s
-		"\nEsto es un mal rollo con el siguiente contenido: \n"
+		"\n\tEsto es un mal rollo con el siguiente contenido: \n"
 	end
 
 	private_class_method :new
