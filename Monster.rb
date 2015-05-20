@@ -40,7 +40,7 @@ class Monster
 	end
 
 	def getBasicValue
-		return @level
+		return @combatLevel
 	end
 
 	def getSpecialValue

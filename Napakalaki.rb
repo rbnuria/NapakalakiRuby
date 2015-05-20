@@ -2,6 +2,7 @@
 require_relative 'Napakalaki.rb'
 require_relative 'Monster.rb'
 require_relative 'Player.rb'
+require_relative 'CultistPlayer.rb'
 require 'singleton'
 module Model     
 class Napakalaki
@@ -42,7 +43,7 @@ include Singleton
 		if combatResult ==  CombatResult::LOSEANDCONVERT
 			c = CardDealer.instance.nextCultist
 			cultist = CultistPlayer.new(@currentPlayer,c)
-			@players.at(@currentPlayersIndex)=cultist
+			@players[@currentPlayersIndex]=cultist
 			@currentPlayer = cultist
 		end
 		combatResult

@@ -132,7 +132,7 @@ class BadConsequenceNumbers < BadConsequence
 		salida = super
 		salida += "\n\tTexto: " + @text + "\n\tNiveles: " + nivel + "\n\tNumero tesoros visibles: " + nVisible_string + "\n\tNumero tesoros ocultos: " + nHidden_string 
 		
-		return salida
+		return salida	
 
 	end
 
@@ -198,6 +198,7 @@ class BadConsequenceSpecific < BadConsequence
 
 
 	def to_s
+		
 		tesorosVisibles = ""
 		for i in 0 .. @specificVisibleTreasures.length
 			tesorosVisibles += @specificVisibleTreasures[i].to_s+ " "
@@ -212,6 +213,8 @@ class BadConsequenceSpecific < BadConsequence
 		salida += "\n\tTexto: " + @text + "\n\tTesoros visibles especificos: " + tesorosVisibles + "\n\tTesoros ocultos especificos: " + tesorosOcultos 
 
 		return salida
+	
+	
 	end
 	
 	public_class_method :new
@@ -238,6 +241,10 @@ class BadConsequenceDeath < BadConsequence
 
 		return salida
 
+	end
+
+	def adjustToFitTreasureLists
+		return BadConsequenceDeath.new(@text)
 	end
 
 	public_class_method :new

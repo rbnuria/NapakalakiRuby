@@ -5,8 +5,8 @@
 # and open the template in the editor.
 
 require 'singleton'
-require_relative 'Napakalaki'
-require_relative 'Command'
+require_relative 'Napakalaki.rb'
+require_relative 'Command.rb'
 
 module Test
 

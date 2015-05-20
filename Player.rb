@@ -25,7 +25,7 @@ class Player
 	end
 
 	private
-	def newCopia(player)
+	def newCopia(otro)
 
         @dead = otro.isDead
         @name = otro.getName
@@ -39,6 +39,10 @@ class Player
 	public
 	def getLevel
 		@level
+	end
+
+	def getPendingBadConsequence
+		@pendingBadConsequence
 	end
 
 	#Metodo privado que devuelve a la vida al jugador haciendo su atributo death falso
@@ -143,9 +147,9 @@ class Player
 	end
 
 	def combat(m)
-		myLevel=getCombatLevel
+		myLevel = getCombatLevel
 		levelMonster=getOponentLevel(m)
-		if myLevel>levelMonster
+		if myLevel > levelMonster
 			prize=m.getPrize
 			applyPrize(prize)
 			if getLevel<10
@@ -365,8 +369,16 @@ class Player
 
 	def to_s
 		combatl = getCombatLevel.to_s
+		if validState	
+			estado = " valido"
+		else
+			estado = " no valido"
+			if @pendingBadConsequence.isEmpty == false
+				estado+="\n\tMal rollo pendiente: \n\t" + @pendingBadConsequence.to_s
+			end
+		end
 
-		@name+"\n\tNivel: "+@level.to_s+"\n\tNivel de combate: "+combatl+"\n"
+		@name+"\n\tNivel: "+@level.to_s+"\n\tNivel de combate: "+combatl+ "\n\tEstado" +estado+" \n"
 	end
 
 	protected
@@ -381,6 +393,7 @@ class Player
 			return true
 		else
 			return false
+		end
 	end
 
 	

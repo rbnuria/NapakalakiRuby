@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 module Model
 class Cultist
 	def initialize(name,gained)
@@ -10,8 +12,11 @@ class Cultist
 	end
 
 	def getSpecialValue
-		(@gainedLevels*CultistPlayer.getCultistPlayers)
+		return (@gainedLevels*CultistPlayer.getCultistPlayers)
 	end
 
+	def to_s
+    	return @name + "\n" + "niveles ganados: " + @gainedLevels.to_s
+  	end
 end
 end
